@@ -9,7 +9,7 @@ class Order(models.Model):
     id = models.AutoField(primary_key=True)
 
     def __str__(self):
-        return f"Number: {self.id}"
+        return f"Number: {self.items.all()}"
 
 # this will be used as the main class for salads, pasta, platters -> pizza and subs will have a subclass for toppings
 class Item(models.Model):

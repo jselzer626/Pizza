@@ -1,11 +1,10 @@
 from django.db import models
 from django.db.models import Sum
 
+size = models.CharField(max_length=1, blank=True, choices=ITEM_SIZES)
+
 # Create your models here.
-
-# orders
-
-# this will be used as the main class for salads, pasta, platters -> pizza and subs will have a subclass for toppings
+# this will be used as the base class for all menu items and as the main class for pasta and salads
 class GeneralMenuItem(models.Model):
 
     #would need a foreign key for the order with which its associated
@@ -18,10 +17,52 @@ class GeneralMenuItem(models.Model):
     size = models.CharField(max_length=1, blank=True, choices=ITEM_SIZES)
 
     def __str__(self):
-        if self.size:
-            return f"{self.name} @ ${self.price}"
-        else:
-            return f"{self.name} {self.size} @ {self.price}"
+        return f"{self.name}"
+
+class Platter(GeneralMenuItem):
+
+    def __str__(self):
+        return f"{self.name} {self.size}"
+
+class Pizza(GeneralMenuItem):
+
+    PIZZA_STYLES = [
+        ('NML', "Normal"),
+        ('SCL', "Sicilian")
+    ]
+    style = models.charField(max_length=3, choices=PIZZA_STYLES)
+    toppings = models.ManyToManyField(PizzaTopping, blank=True)
+
+    def __str__(self):
+        return f"{self.name} {self.style} {self.toppings}"
+
+class PizzaTopping(models.Model):
+
+    TOPPINGS = [
+        ('Pepperoni','Pepperoni')
+        ('Sausage','Sausage')
+        ('Mushrooms','Mushrooms')
+        ('Onions','Onions')
+        ('Ham','Ham')
+        ('CanadianBacon', 'Canadian Bacon')
+        ('Pineapple','Pineapple')
+        ('Eggplant', 'Eggplant')
+        ('TomatoBasil', 'Tomato & Basil')
+        ('GreenPeppers', 'Green Peppers')
+        ('Hamburger', 'Hamburger')
+        ('Spinach', 'Spinach')
+        ('Artichoke', 'Artichoke')
+        ('BuffaloChicken', 'Buffalo Chicken')
+        ('BarbecueChicken', 'Barbecue Chicken')
+        ('Anchovies', 'Anchovies')
+        ('BlackOlives', 'Black Olives')
+        ('FreshGarlic', 'Fresh Garlic')
+        ('Zucchini', 'Zucchini')
+    ]
+    name=models.charField(max_length=20, choices=TOPPINGS)
+
+    def __str__(self):
+        return f"{self.name}"
 
 class Order(models.Model):
 
@@ -33,14 +74,11 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
 
     def __str__(self):
-        return f"Number: {self.id}"
+        return f"Number: {self.id} "
 
     def updateTotal(self):
         for item in self.items.all():
-            print(item)
-            for detail in item.itemorderdetail_set.all():
-                print(detail.total)
-                self.total += detail.total
+            total += item.itemorderdetail_set.first().total
 
 class ItemOrderDetail(models.Model):
 

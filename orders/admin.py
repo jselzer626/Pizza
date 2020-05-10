@@ -4,8 +4,11 @@ from django.contrib import admin
 # password is cobb1234
 
 # Register your models here.
-from .models import Order, GeneralMenuItem, ItemOrderDetail
+from .models import Order, MenuItem, ItemOrderDetail, Category, PizzaTopping, CheesesteakTopping
 
 admin.site.register(Order)
-admin.site.register(GeneralMenuItem)
+admin.site.register(Category)
+admin.site.register(MenuItem)
 admin.site.register(ItemOrderDetail)
+admin.site.register(PizzaTopping)
+admin.site.register(CheesesteakTopping)

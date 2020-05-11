@@ -14,7 +14,7 @@ class Category(models.Model):
     name = models.CharField(max_length=3, choices=FOOD_CATEGORIES)
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
 
 class PizzaTopping(models.Model):
 
@@ -42,7 +42,7 @@ class PizzaTopping(models.Model):
     name=models.CharField(max_length=20, choices=PIZZA_TOPPINGS)
 
     def __str__(self):
-        return f"{self.name}"
+        return self.get_name_display()
 
 class CheesesteakTopping(models.Model):
 
@@ -54,7 +54,7 @@ class CheesesteakTopping(models.Model):
     name=models.CharField(max_length=3, choices=CHEESESTEAK_TOPPING)
 
     def __str__(self):
-        return f"{self.name}"
+        return self.get_name_display()
 
 class MenuItem(models.Model):
 
@@ -71,14 +71,14 @@ class MenuItem(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name} {self.pizzaStyle}"
+        return f"{self.name}"
 
 class Order(models.Model):
 
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
     lastUpdated = models.DateTimeField(auto_now=True)
-    items = models.ManyToManyField(MenuItem, blank=True, through='ItemOrderDetail')
+    items = models.ManyToManyField(MenuItem, blank=True, through='OrderDetail')
     completed = models.BooleanField(default=False)
     total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
 
@@ -89,33 +89,37 @@ class Order(models.Model):
         for item in self.items.all():
             total += item.itemorderdetail_set.first().total
 
-class ItemOrderDetail(models.Model):
+# this class will roll up to order and will contain the number and type of item being ordered. This will be the parent of Item Detail which holds individual details for each item ordered(i.e. size, toppings, etc.)
+class OrderDetail(models.Model):
 
-    ITEM_SIZES = [
-        ('SM', "Small"),
-        ('LG', "Large")
-    ]
-    size = models.CharField(max_length=2, blank=True, choices=ITEM_SIZES)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    toppings = models.ManyToManyField(PizzaTopping, blank=True)
-    sandwichToppings = models.ManyToManyField(CheesesteakTopping, blank=True)
     total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
-    extraCheese = models.BooleanField(default=False)
 
     def update(self):
-        # handle cheese
-        cheeseFee = 0
-        if self.extraCheese == True:
-            cheeseFee = .50
-        if self.size == '' or self.size == 'small':
-            self.total = self.quantity * self.item.priceSmall + cheeseFee
-        else:
-            self.total = self.quantity * self.item.priceLarge + cheeseFee
+        pass
+
+    def __str__(self):
+        details = ItemOrderDetail.objects.filter(orderDetail = self.id)
+        return f"{self.item} X {self.quantity}: {details}"
+
+
+class ItemOrderDetail(models.Model):
+
+    ITEM_SIZES = [
+    ('SM', "Small"),
+    ('LG', "Large")
+    ]
+    size = models.CharField(max_length=2, blank=True, choices=ITEM_SIZES)
+    toppings = models.ManyToManyField(PizzaTopping, blank=True)
+    sandwichToppings = models.ManyToManyField(CheesesteakTopping, blank=True)
+    extraCheese = models.BooleanField(default=False)
+    total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    orderDetail = models.ForeignKey(OrderDetail, on_delete=models.CASCADE)
 
     def __str__(self):
         if self.extraCheese == True:
-            return f"{self.item} X {self.quantity} {self.toppings} +XTRA Cheese  @ {self.total}"
+            return f"{self.item} {self.size} {self.toppings} {self.sandwichToppings} XTRA cheese"
         else:
-            return f"{self.item} X {self.quantity} {self.toppings} @ {self.total}"
+            return f"{self.item} {self.size} {self.toppings} {self.sandwichToppings}"

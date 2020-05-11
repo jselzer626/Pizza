@@ -1,0 +1,39 @@
+name,priceSmall,priceLarge,pizzaStyle,pizzaToppingsCount,category
+Veggie,6.95,8.5,,0,SUB
+Fried Chicken,6.95,8.5,,0,SUB
+Cheeseburger,5.1,7.45,,0,SUB
+Hamburger,4.6,6.95,,0,SUB
+"Sausage,  Peppers & Onions",8.5,8.5,,0,SUB
+Steak + Cheese,6.95,8.5,,0,SUB
+Steak,6.5,7.95,,0,SUB
+Eggplant Parmigiana,6.5,7.95,,0,SUB
+Chicken Parmigiana,7.5,8.5,,0,SUB
+Turkey,6.5,7.95,,0,SUB
+Tuna,6.5,7.95,,0,SUB
+Meatball,6.5,7.95,,0,SUB
+Ham & Cheese,6.5,7.95,,0,SUB
+Italian,6.5,7.95,,0,SUB
+Cheese,6.5,7.95,,0,SUB
+Special,30.45,45.7,SCL,5,PZA
+3 Topping,29.45,44.7,SCL,3,PZA
+2 Topping,28.45,42.7,SCL,2,PZA
+1 Topping,26.45,40.7,SCL,1,PZA
+Cheese,24.45,38.7,SCL,0,PZA
+Special,17.75,25.95,NML,5,PZA
+3 Topping,16.2,23.95,NML,3,PZA
+2 Toppings,15.2,21.95,NML,2,PZA
+1 Topping,13.7,19.95,NML,1,PZA
+Cheese,12.7,17.95,NML,0,PZA
+Chicken Parm Platter,55,85,,0,PLT
+Meatball Parm Platter,50,75,,0,PLT
+Baked Ziti Platter,40,65,,0,PLT
+Antipasto Platter,50,75,,0,PLT
+Greek Salad Platter,50,75,,0,PLT
+Garden Salad Platter,40,65,,0,PLT
+Salad w/Tuna,8.25,8.25,,0,SLD
+Antipasto,8.25,8.25,,0,SLD
+Greek Salad,8.5,8.5,,0,SLD
+Garden Salad,6.25,6.25,,0,SLD
+Baked Ziti w/Chicken,9.75,9.75,,0,PST
+Baked Ziti w/Meatballs,8.75,8.75,,0,PST
+Baked Ziti w/Mozzarella,6.5,6.5,,0,PST

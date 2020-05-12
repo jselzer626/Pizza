@@ -1,5 +1,7 @@
-from django.db import models
+from django.db import models, IntegrityError
 from django.db.models import Sum
+# import command belwo
+# item = MenuItem(name=row['name'],priceSmall=row['priceSmall'],priceLarge=row['priceLarge'],pizzaStyle=row['pizzaStyle'],pizzaToppingsCount=row['pizzaToppingsCount'],category=Category.objects.get(name=row['category']))
 
 # Create your models here.
 # this will be used as the base class for all menu items and as the main class for pasta and salads
@@ -71,7 +73,7 @@ class MenuItem(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} {self.get_pizzaStyle_display()}"
 
 class Order(models.Model):
 
@@ -82,44 +84,44 @@ class Order(models.Model):
     completed = models.BooleanField(default=False)
     total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
 
-    def __str__(self):
-        return f"Number: {self.id} "
-
     def updateTotal(self):
-        for item in self.items.all():
-            total += item.itemorderdetail_set.first().total
+        order_items = OrderDetail.objects.filter(order = self.id).all()
+        self.total = order_items.aggregate(Sum('total'))['total__sum'] if len(order_items) > 0 else 0.0
+        self.save()
+
+    def __str__(self):
+        return f"Number: {self.id} Total: {self.total}"
 
 # this class will roll up to order and will contain the number and type of item being ordered. This will be the parent of Item Detail which holds individual details for each item ordered(i.e. size, toppings, etc.)
 class OrderDetail(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
-
-    def update(self):
-        pass
-
-    def __str__(self):
-        details = ItemOrderDetail.objects.filter(orderDetail = self.id)
-        return f"{self.item} X {self.quantity}: {details}"
-
-
-class ItemOrderDetail(models.Model):
-
     ITEM_SIZES = [
     ('SM', "Small"),
     ('LG', "Large")
     ]
     size = models.CharField(max_length=2, blank=True, choices=ITEM_SIZES)
+    quantity = models.IntegerField(default=1)
     toppings = models.ManyToManyField(PizzaTopping, blank=True)
     sandwichToppings = models.ManyToManyField(CheesesteakTopping, blank=True)
-    extraCheese = models.BooleanField(default=False)
+    extraCheese = models.BooleanField(blank=True)
     total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
-    orderDetail = models.ForeignKey(OrderDetail, on_delete=models.CASCADE)
+    notes = models.CharField(max_length=64, blank=True)
+
+    def updateTotal(self):
+        self.total = self.item.priceLarge * self.quantity if self.size == 'LG' else self.item.priceSmall * self.quantity
+        self.save()
 
     def __str__(self):
-        if self.extraCheese == True:
-            return f"{self.item} {self.size} {self.toppings} {self.sandwichToppings} XTRA cheese"
+        self.updateTotal()
+        showToppings = True if self.toppings.all().count() > 0 or self.sandwichToppings.all().count() > 0 else False
+        if self.item.category == 'PZA':
+            item_pizza_toppings = [str(elem) for elem in self.toppings.all()]
+            return f"{self.item} {item_pizza_toppings} X {self.quantity} - {self.total}" if showToppings else f"{self.item} No toppings X {self.quantity} - {self.total}"
+        elif self.item.category == 'SUB':
+            extraCheese = 'XTRA Cheese' if {self.extraCheese} else ''
+            item_sandwich_toppings = [str(elem) for elem in self.sandwichToppings.all()]
+            return f"{self.item} {item_sandwich_toppings} X {self.quantity} - {self.total}" if showToppings else f"{self.item} No toppings X {self.quantity} - {self.total}"
         else:
-            return f"{self.item} {self.size} {self.toppings} {self.sandwichToppings}"
+            return f"{self.item} {self.size} X {self.quantity} - {self.total}"

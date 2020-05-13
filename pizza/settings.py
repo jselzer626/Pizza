@@ -27,10 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'orders.apps.OrdersConfig',
     'django.contrib.admin',
     'django.contrib.auth',

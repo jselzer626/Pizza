@@ -13,6 +13,9 @@ def index(request):
     }
     return render(request, "orders/menu.html", context)
 
+def register(request):
+    return render(request, "users/register.html")
+
 def login_view(request):
     username = request.POST["username"]
     password = request.POST["password"]
@@ -26,10 +29,10 @@ def login_view(request):
     else:
         return render(request, "users/login.html", {"message": "Invalid Credentials"})
 
-def register_view(request):
+def register_confirm(request):
     username = request.POST["new_username"]
     password = request.POST["new_password"]
-    user = Users.objects.create_user(username=username, password=password)
+    user = User.objects.create_user(username=username, password=password)
     user.save()
     login(request, user)
     context = {

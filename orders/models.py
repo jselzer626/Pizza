@@ -1,7 +1,5 @@
 from django.db import models, IntegrityError
 from django.db.models import Sum
-# import command belwo
-# item = MenuItem(name=row['name'],priceSmall=row['priceSmall'],priceLarge=row['priceLarge'],pizzaStyle=row['pizzaStyle'],pizzaToppingsCount=row['pizzaToppingsCount'],category=Category.objects.get(name=row['category']))
 
 # Create your models here.
 # this will be used as the base class for all menu items and as the main class for pasta and salads

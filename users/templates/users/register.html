@@ -1,20 +1,28 @@
-<html>
-<head>
-  <title>Login</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Register
+{% endblock %}
 
-<form action="{% url 'register_confirm' %}" method="post">
-  {% csrf_token %}
-  UserName:<br>
-  <input type="text"name="new_username">
-  Password:<br>
-  <input type="password" name="new_password">
-  <br>
-  <input type="submit" value="register">
-</form>
+{% block body %}
 
+<div class="signUpForm">
+  <h4 class="display-4">Register</h4>
+  <form action="{% url 'register_confirm' %}" method="post">
+    {% csrf_token %}
+    <label class="lead">Username</label><br>
+    <input type="text"name="new_username"><br>
+    <label class="lead">Password</label><br>
+    <input type="password" name="new_password">
+    <br>
+    <br>
+    <button class='btn btn-primary' type="submit">Create Account</button>
+  </form>
+</div>
+<div id="belowSignUpForm">
+  <div>
+    <p class="lead">Creating an account gives you access to special deals and promos!</p>
+  </div>
+</div>
 
-<body>
-
-</html>
+{% endblock %}

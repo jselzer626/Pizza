@@ -8,6 +8,18 @@ body, html {
   background-image: linear-gradient(to right, #bf0000, red);
 }
 
+i {
+  margin-right: 10px;
+}
+
+.footer-details {
+  height: 50%;
+}
+
+.page-header {
+  margin-top: 50px;
+}
+
 .container {
   min-height: 75vh;
   overflow: hidden;
@@ -15,18 +27,52 @@ body, html {
   z-index: -1;
 }
 
+footer > div {
+  height: 75%;
+  border-top: 1px solid white;
+  margin-top: 35px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.userMenu {
+  font-size: 125px;
+  margin-top: 125px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.userMenu p {
+  margin-top: 25px;
+  font-size: 20px;
+}
+
+.userMenu a {
+  color: black;
+}
+
+.footer-details > p {
+  margin-top: 15px;
+}
+
 .signUpForm {
   margin-top: 100px;
+  margin-bottom: 50px;
+}
+.signUpForm > a {
+  color: black;
+}
+
+#belowSignUpForm {
+  padding-top: 30px;
+  border-top: 1px solid black;
 }
 
 .btn-primary {
   background-color: #bf0000;
   border: black;
-}
-
-footer > .nav-item {
-  margin-right: 25px;
-  color: white;
 }
 
 #restaurant-pic {
@@ -59,4 +105,13 @@ footer {
 
 .nav-item > a {
   color: white;
+}
+
+#userDetails {
+  color: white;
+  margin-right: 50px;
+}
+
+table {
+  columns: 6;
 }

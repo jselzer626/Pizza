@@ -4,18 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://kit.fontawesome.com/2a523a7e7f.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <title>{% block title %}{% endblock %}</title>
   </head>
   <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#"><em>Pinochio's Pizza</em></a>
+    <a class="navbar-brand lead" href="#">Pinochio's Pizza</a>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+      {% if user.username %}
+      <div class="dropdown d-inline">
+        <a class="nav-link dropdown-toggle lead" role="button" id="userDetails" data-toggle="dropdown"><i class="far fa-user"></i>{{ user.username }}</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="logout">Menu</a>
+            <a class="dropdown-item" href="logout">Logout</a>
+          </div>
+      </div>
+      {% else %}
+      <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-pizza-slice"></i>Login</a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-pizza-slice"></i>Menu</a></li>
+      {% endif %}
     </ul>
   </nav>
   <body>
@@ -26,12 +36,10 @@
     </div>
   </body>
   <footer>
-    <nav class="navbar navbar-expand-lg">
-      <ul class="navbar-nav">
-        <li class="nav-item">Location: 123 Fake St. Anywhere, USA</li>
-        <li class="nav-item">Hours: 11AM - 2AM, Every Day</li>
-        <li class="nav-item">Serving the community since 1985!</li>
-      </ul>
-    </nav>
+    <div>
+      <div class="footer-details"><p class="lead"><i class="fas fa-map-marker-alt"></i>123 Fake St. Anywhere, USA 12345</p></div>
+      <div class="footer-details"><p class="lead"><i class="far fa-clock"></i>Open 11 AM - 2 AM every day</p></div>
+      <div class="footer-details"><p class="lead"><i class="fas fa-laptop"></i>Online ordering available! Please login for details</p></div>
+    </div>
   </footer>
 </html>

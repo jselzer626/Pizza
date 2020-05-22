@@ -10,7 +10,6 @@ def index(request):
 
 def createNewOrder(request):
     context = {
-        'categories': Category.objects.all(),
-        'menuItems': MenuItem.objects.all()
+        'categories': Category.objects.all()
     }
     return render(request, "orders/create.html", context)

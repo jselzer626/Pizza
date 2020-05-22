@@ -22,7 +22,6 @@ i {
 
 .container {
   min-height: 75vh;
-  overflow: hidden;
   display: block;
   z-index: -1;
 }
@@ -42,6 +41,20 @@ footer > div {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+}
+
+.menuHeader {
+  padding: 10px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.menuHeader p {
+  margin-bottom: 0px;
 }
 
 .userMenu p {
@@ -114,4 +127,12 @@ footer {
 
 table {
   columns: 6;
+}
+
+tbody {
+  display: none;
+}
+
+.selected {
+  display: block;
 }

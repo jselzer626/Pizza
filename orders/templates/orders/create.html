@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block staticfile %}
+<script src="{% static 'scripts1.js' %}"></script>
+{% endblock %}
 {% block title %}
 Create Order
 {% endblock %}
@@ -7,32 +10,63 @@ Create Order
 {% block body %}
 <div class="page-header">
   <h1>Menu</h1>
+  <br>
+  <p class="lead"><em>Please choose a category to view related menu items</em></p>
 </div>
-<table class="table table-striped">
+<div class='menuHeader'>
+  {% for category in categories %}
+  <p class="lead" data-section="{{ category }}">{{ category }}</p>
+  {% endfor %}
+</div>
+<table class="table">
   <thead>
     <tr>
-      <th colspan="4">Name</th>
-      <th>Small</th>
-      <th>Large</th>
+    <th colspan="4">Item Name</th>
+    <th>Small</th>
+    <th>Large</th>
     </tr>
   </thead>
   {% for category in categories %}
+  <tbody id="{{ category }}">
+  {% for menuItem in category.menuitem_set.all %}
+    <tr>
+      <td colspan="4">{{ menuItem.name }} {{menuItem.pizzaStyle}}</td>
+      {% if category.name == 'PST' %}
+      <td colspan="2">{{ menuItem.priceSmall }}</td>
+      {% elif category.name == 'SLD' %}
+      <td colspan="2">{{ menuItem.priceSmall }}</td>
+      {% else %}
+      <td>{{ menuItem.priceSmall }}</td>
+      <td>{{ menuItem.priceLarge }}</td>
+    {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+{% endfor %}
+</table>
+
+
+
+
+
+
+
+
+  <!--{% for category in categories %}
   <tr>
-    <th>{{ category }}</th>
+    <th class="specialDisplayCell" colspan = "6">{{ category }}</th>
   </tr>
-  {% for item in menuItems %}
-  {% if menuItem.category == "category" %}
+  {% for menuItem in category.menuitem_set.all %}
   <tr>
     <td colspan="4">{{ menuItem.name }}</td>
     {% if menuItem.priceSmall == menuItem.priceLarge %}
-    <td colspan="2">{{ menuItem.priceSmall }}</td>
+    <td colspan="2" class="specialDisplayPrice">{{ menuItem.priceSmall }}***</td>
     {% else %}
     <td>{{ menuItem.priceSmall }}</td>
     <td>{{ menuItem.priceLarge }}</td>
     {% endif %}
   </tr>
-  {% endif %}
   {% endfor %}
   {% endfor %}
-</table>
+</table>-->
 {% endblock %}

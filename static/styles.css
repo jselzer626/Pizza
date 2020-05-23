@@ -127,6 +127,7 @@ footer {
 
 table {
   columns: 6;
+  table-layout: fixed;
 }
 
 tbody {
@@ -134,5 +135,5 @@ tbody {
 }
 
 .selected {
-  display: block;
+  display: table-row-group;
 }

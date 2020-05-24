@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     let menuHeader = document.querySelector('.menuHeader')
+    let menu = document.querySelector('table')
 
     //select pasta
     document.querySelector('#Pasta').classList.add('selected')
@@ -21,6 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
         var sectionToDisplay = document.getElementById(`${e.target.dataset.section}`)
         e.target.style.fontWeight = 'bold'
         sectionToDisplay.classList.add('selected')
+      })
+    })
+
+    menu.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', e => {
+        itemId = e.target.dataset.itemid
+        window.location.href = `addGeneralItem?item=${itemId}`
       })
     })
 

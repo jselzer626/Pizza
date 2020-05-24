@@ -48,12 +48,12 @@ Create Order
     <tr>
       <td colspan="4">{{ menuItem.name }} {{menuItem.pizzaStyle}}</td>
       {% if category.name == 'PST' %}
-      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" data-itemName = "{{ menuItem.name }}" data-toggle="modal" data-target="#orderDetailModal">Add</button></td>
+      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" >Add</button></td>
       {% elif category.name == 'SLD' %}
-      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" data-itemName = "{{ menuItem.name }}" data data-toggle="modal" data-target="#orderDetailModal">Add</button></td>
+      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" >Add</button></td>
       {% else %}
       <td>{{ menuItem.priceSmall }}</td>
-      <td>{{ menuItem.priceLarge }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" data-itemName = "{{ menuItem.name }}" data-toggle="modal" data-target="#orderDetailModal">Add</button></td>
+      <td>{{ menuItem.priceLarge }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}">Add</button></td>
     {% endif %}
     </tr>
   {% endfor %}

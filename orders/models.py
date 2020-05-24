@@ -1,6 +1,7 @@
 from django.db import models, IntegrityError
 from django.db.models import Sum
 from django.conf import settings
+from django.urls import reverse
 
 # Create your models here.
 # this will be used as the base class for all menu items and as the main class for pasta and salads
@@ -105,13 +106,16 @@ class OrderDetail(models.Model):
     quantity = models.IntegerField(default=1)
     toppings = models.ManyToManyField(PizzaTopping, blank=True)
     sandwichToppings = models.ManyToManyField(CheesesteakTopping, blank=True)
-    extraCheese = models.BooleanField(blank=True)
+    extraCheese = models.BooleanField(blank=True, null=True)
     total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
     notes = models.CharField(max_length=64, blank=True)
 
     def updateTotal(self):
         self.total = self.item.priceLarge * self.quantity if self.size == 'LG' else self.item.priceSmall * self.quantity
         self.save()
+
+    def get_absolute_url(self):
+        return reverse("loadMenu")
 
     def __str__(self):
         self.updateTotal()

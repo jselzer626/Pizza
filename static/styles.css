@@ -26,13 +26,18 @@ i {
   z-index: -1;
 }
 
-footer > div {
+footer div {
   height: 75%;
   border-top: 1px solid white;
   margin-top: 35px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+}
+
+.orderDetailModal {
+  display: none;
+  padding-right: 17px;
 }
 
 .userMenu {
@@ -105,7 +110,7 @@ footer > div {
 footer {
   color: white;
   height: 175px;
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   background-image: linear-gradient(to right, #bf0000, red);
@@ -132,6 +137,10 @@ table {
 
 tbody {
   display: none;
+}
+
+tbody button {
+  margin-left: 30px;
 }
 
 .selected {

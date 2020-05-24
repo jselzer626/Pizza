@@ -1,5 +1,6 @@
 from django.db import models, IntegrityError
 from django.db.models import Sum
+from django.conf import settings
 
 # Create your models here.
 # this will be used as the base class for all menu items and as the main class for pasta and salads
@@ -76,6 +77,7 @@ class MenuItem(models.Model):
 class Order(models.Model):
 
     id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     lastUpdated = models.DateTimeField(auto_now=True)
     items = models.ManyToManyField(MenuItem, blank=True, through='OrderDetail')

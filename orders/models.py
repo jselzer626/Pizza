@@ -89,6 +89,7 @@ class Order(models.Model):
         order_items = OrderDetail.objects.filter(order = self.id).all()
         self.total = order_items.aggregate(Sum('total'))['total__sum'] if len(order_items) > 0 else 0.0
         self.save()
+        return self.total
 
     def __str__(self):
         return f"Number: {self.id} Total: {self.total}"
@@ -113,6 +114,7 @@ class OrderDetail(models.Model):
     def updateTotal(self):
         self.total = self.item.priceLarge * self.quantity if self.size == 'LG' else self.item.priceSmall * self.quantity
         self.save()
+        return self.total
 
     def get_absolute_url(self):
         return reverse("loadMenu")

@@ -147,7 +147,7 @@ tbody button {
   display: table-row-group;
 }
 
-#orderFormHeader {
+.specialHeader {
   width: 50%;
   margin: 0 auto;
   margin-top: 50px;
@@ -163,4 +163,12 @@ tbody button {
 
 #orderForm button {
   margin-top: 20px;
+}
+
+tfoot > tr {
+  background-color: rgba(0,0,0,.10);
+}
+
+#cartDisplay tbody {
+  display: table-row-group;
 }

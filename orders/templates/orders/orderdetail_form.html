@@ -6,10 +6,14 @@ Add Item
 
 {% block body %}
 
-<h1 id="orderFormHeader">Add Item</h1>
+<h1 class="specialHeader">Add Item</h1>
 <form class="form" method="POST" id="orderForm">
 
   {% csrf_token %}
+
+  <div hidden>
+  {{ form.order }}
+  </div>
 
   {{ form.item.label_tag }}
   {{ form.item }}
@@ -30,7 +34,7 @@ Add Item
   {{ form.size.label_tag }}
   {{ form.size }}
   <br>
-  {{ form.extraCheese.label_tag }}
+  <label for="id_extraCheese">Extra Cheese?</label>
   {{ form.extraCheese }}
 
     {% if cheesesteak %}
@@ -41,7 +45,7 @@ Add Item
 
     {% endif %}
 
-  {% else %}
+  {% elif category.name == "PZA" %}
 
   <br>
   {{ form.size.label_tag }}

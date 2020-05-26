@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block staticfile %}
+<script src="{% static 'scripts2.js' %}"></script>
+{% endblock %}
+{% block title %}
+View Cart
+{% endblock %}
+
+{% block body %}
+
+  <h1 class="specialHeader">Your Cart</h1>
+  <table class="table" id="cartDisplay">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>Special Notes</th>
+        <th>Item Total</th>
+        </tr>
+    </thead>
+    {% if object_list %}
+    <p hidden id="orderTotalRaw">{{ object_list.0.order.updateTotal }}</p>
+    <tbody>
+      {% for detail in object_list %}
+      <tr>
+        <td>{{ detail.item }}</td>
+        {% if detail.size %}
+        <td>{{ detail.size }}</td>
+        {% else %}
+        <td>RG</td>
+        {% endif %}
+        <td>{{ detail.quantity }}</td>
+        <td>{{ detail.notes }}</td>
+        <td>${{ detail.updateTotal }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+        <td><b>Order #: </b>{{ object_list.0.order.id }}</td>
+        <td colspan="2"><b>Last Updated: </b>{{ object_list.0.order.lastUpdated }}</td>
+        <td><b>Total: </b><span id="orderTotalClean">$</span></td>
+        <td><button class="btn btn-primary">Checkout</button></td>
+        </tr>
+      </tfoot>
+  {% else %}
+    No items in your cart!
+  {% endif %}
+  </table>
+
+{% endblock %}

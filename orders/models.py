@@ -106,7 +106,7 @@ class OrderDetail(models.Model):
     quantity = models.IntegerField(default=1)
     toppings = models.ManyToManyField(PizzaTopping, blank=True)
     sandwichToppings = models.ManyToManyField(CheesesteakTopping, blank=True)
-    extraCheese = models.BooleanField(blank=True, null=True)
+    extraCheese = models.BooleanField(default=False)
     total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
     notes = models.CharField(max_length=64, blank=True)
 

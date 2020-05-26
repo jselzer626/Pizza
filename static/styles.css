@@ -146,3 +146,21 @@ tbody button {
 .selected {
   display: table-row-group;
 }
+
+#orderFormHeader {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 3%;
+  border-bottom: 1px solid black;
+  padding-bottom: 2%;
+}
+
+#orderForm label {
+  font-size: 18px;
+  padding: 10px;
+}
+
+#orderForm button {
+  margin-top: 20px;
+}

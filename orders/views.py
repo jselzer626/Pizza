@@ -17,8 +17,7 @@ def loadMenu(request):
 
 class addGeneralItem(CreateView):
     model = OrderDetail
-    fields = ['order', 'item', 'quantity', 'toppings']
-    category = ''
+    fields = ['order', 'item', 'quantity', 'toppings', 'notes', 'sandwichToppings', 'extraCheese', 'size']
 
     def get_initial(self):
         itemId = self.request.GET.get('item', '')
@@ -26,8 +25,11 @@ class addGeneralItem(CreateView):
         return {'item': itemOrdered}
 
     # this provides the item category so the view can be filtered based on what details need to be provided
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         itemId = self.request.GET.get('item', '')
+        cheeseSteak = True if MenuItem.objects.get(pk=itemId).name == "Steak + Cheese" else False
         context['category'] = MenuItem.objects.filter(pk=itemId).first().category
+        context['cheesteak'] = cheeseSteak
         return context

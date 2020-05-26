@@ -6,26 +6,56 @@ Add Item
 
 {% block body %}
 
-<form class="form" method="POST">
+<h1 id="orderFormHeader">Add Item</h1>
+<form class="form" method="POST" id="orderForm">
 
   {% csrf_token %}
 
-  {% if category.name == "PST" %}
-
-  {{ form }}
+  {{ form.item.label_tag }}
+  {{ form.item }}
+  <br>
+  {{ form.quantity.label_tag }}
   {{ form.quantity }}
 
-  {% elif category.name == "SLD" %}
 
-  {{ form.name }}
-  {{ form.quantity }}
+  {% if category.name == "PLT" %}
+
+  <br>
+  {{ form.size.label_tag }}
+  {{ form.size }}
+
+  {% elif category.name == "SUB" %}
+
+  <br>
+  {{ form.size.label_tag }}
+  {{ form.size }}
+  <br>
+  {{ form.extraCheese.label_tag }}
+  {{ form.extraCheese }}
+
+    {% if cheesesteak %}
+
+    <br>
+    {{ form.sandwichToppings.label_tag }}
+    {{ form.sandwichToppings }}
+
+    {% endif %}
 
   {% else %}
 
-  {{ form.as_p }}
+  <br>
+  {{ form.size.label_tag }}
+  {{ form.size }}
+  <br>
+  {{ form.toppings.label_tag }}
+  {{ form.toppings }}
 
   {% endif %}
 
+  <br>
+  <textarea rows="4" cols="50" type="text" name="notes" max_length="64" id="id_notes" placeholder="Any special requests..."></textarea>
+
+<br>
 <button class="btn btn-primary" type="submit">Add To Cart</button>
 
 </form>

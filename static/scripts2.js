@@ -1,6 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
+
   //editing display of total
-  //let total = parseFloat(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2)
-  //document.querySelector("#orderTotalClean").innerHTML += total
+  let total = document.querySelector("#orderTotalRaw") ? parseFloat(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
+  total ? document.querySelector("#orderTotalClean").innerHTML += total : ''
+
+  //configure delete buttons
+  document.querySelectorAll('.fa-trash').forEach(button => {
+    button.addEventListener('click', e => {
+      var itemToDelete = e.target.id
+      var deleteForm = document.querySelector("#deleteForm")
+      deleteForm.action = `deleteItem/${itemToDelete}/`
+      deleteForm.submit()
+    })
+  })
+
+  //if empty message is displaying (Cart is empty) then configure menu redirect button
+  let menuRedirect = document.querySelector('#emptyMessage') ? document.querySelector('#emptyMessage') : ''
+  menuRedirect ? menuRedirect.querySelector('button').onclick = () => window.location.href = "loadMenu" : ''
+
 
 })

@@ -171,4 +171,24 @@ tfoot > tr {
 
 #cartDisplay tbody {
   display: table-row-group;
+  text-align: center;
+}
+
+.alert {
+  height: 7%;
+  margin-top: 10px;
+}
+
+.alert button {
+  margin-left: 15px;
+}
+
+td .fa-trash {
+  margin-left: 15%;
+}
+
+#emptyMessage::before {
+  content: '';
+  display: block;
+  height: 50px;
 }

@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from .models import Order, MenuItem, OrderDetail, Category, PizzaTopping, CheesesteakTopping
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
+
 # Create your views here.
 @login_required(login_url="users/")
 def index(request):
@@ -11,6 +13,7 @@ def index(request):
 
 def loadMenu(request):
     context = {
+        'message': request.GET.get('message', ''),
         'categories': Category.objects.all()
     }
     return render(request, "orders/create.html", context)
@@ -18,6 +21,7 @@ def loadMenu(request):
 class addGeneralItem(CreateView):
     model = OrderDetail
     fields = ['order', 'item', 'quantity', 'toppings', 'notes', 'sandwichToppings', 'extraCheese', 'size']
+    success_url = "loadMenu?message=itemAdded"
 
     def get_initial(self):
         itemId = self.request.GET.get('item', '')
@@ -50,3 +54,8 @@ class viewCart(ListView):
         except Order.DoesNotExist:
             currentOrder = None
         return OrderDetail.objects.filter(order = currentOrder)
+
+class deleteItem(DeleteView):
+
+    model = OrderDetail
+    success_url = reverse_lazy('viewCart')

@@ -9,7 +9,7 @@ View Cart
 
 {% block body %}
 
-  <h1 class="specialHeader">Your Cart</h1>
+<h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart</h1>
   <table class="table" id="cartDisplay">
     <thead>
         <tr>
@@ -33,7 +33,7 @@ View Cart
         {% endif %}
         <td>{{ detail.quantity }}</td>
         <td>{{ detail.notes }}</td>
-        <td>${{ detail.updateTotal }}</td>
+        <td>${{ detail.updateTotal }}<i id="{{ detail.id }}" class="fas fa-trash"></i><i class="fas fa-pencil-alt"></i></td>
       </tr>
       {% endfor %}
       </tbody>
@@ -46,8 +46,22 @@ View Cart
         </tr>
       </tfoot>
   {% else %}
-    No items in your cart!
+    <tbody id="emptyMessage">
+      <tr>
+      <td colspan="5" class="lead"><b>Your cart is empty!</b></td>
+      </tr>
+      <tr>
+      <td colspan="5"><button class="btn btn-primary">View Menu</button></td>
+      </tr>
+    </tbody>
   {% endif %}
   </table>
+  <!--Delete form-->
+  <div hidden>
+    <form id="deleteForm" method="POST" action="">
+    {% csrf_token %}
+    <input type="submit" value="DELETE">
+    </form>
+  </div>
 
 {% endblock %}

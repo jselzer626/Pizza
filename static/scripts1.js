@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     let menuHeader = document.querySelector('.menuHeader')
     let menu = document.querySelector('table')
+    let alert = document.querySelector(".alert") ? document.querySelector(".alert") : ''
 
     //select pasta
     document.querySelector('#Pasta').classList.add('selected')
@@ -31,6 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = `addGeneralItem?item=${itemId}`
       })
     })
+
+    //configure alert button if there
+    alert ? alert.querySelector('button').onclick = () => window.location.href = "viewCart" : ''
 
 // end of DOMcontentLoaded
 })

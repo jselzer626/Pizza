@@ -8,22 +8,11 @@ Create Order
 {% endblock %}
 
 {% block body %}
-<div class="modal fade show" id="orderDetailModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Item</h5>
-          </div>
-          <div class="modal-body">
-          <form class="form">
-          </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-      </div>
-    </div>
-  </div>
+{% if message %}
+<div class="alert alert-primary" role="alert">
+  <p class="lead">Item added to cart!<button class="btn btn-primary">View Cart</button></p>
+</div>
+{% endif %}
 <div class="page-header">
   <h1>Menu</h1>
   <br>
@@ -61,28 +50,4 @@ Create Order
 {% endfor %}
 </table>
 
-
-
-
-
-
-
-
-  <!--{% for category in categories %}
-  <tr>
-    <th class="specialDisplayCell" colspan = "6">{{ category }}</th>
-  </tr>
-  {% for menuItem in category.menuitem_set.all %}
-  <tr>
-    <td colspan="4">{{ menuItem.name }}</td>
-    {% if menuItem.priceSmall == menuItem.priceLarge %}
-    <td colspan="2" class="specialDisplayPrice">{{ menuItem.priceSmall }}***</td>
-    {% else %}
-    <td>{{ menuItem.priceSmall }}</td>
-    <td>{{ menuItem.priceLarge }}</td>
-    {% endif %}
-  </tr>
-  {% endfor %}
-  {% endfor %}
-</table>-->
 {% endblock %}

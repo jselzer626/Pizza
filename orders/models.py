@@ -83,7 +83,7 @@ class Order(models.Model):
     lastUpdated = models.DateTimeField(auto_now=True)
     items = models.ManyToManyField(MenuItem, blank=True, through='OrderDetail')
     completed = models.BooleanField(default=False)
-    total = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    total = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
 
     def updateTotal(self):
         order_items = OrderDetail.objects.filter(order = self.id).all()

@@ -35,6 +35,8 @@ footer div {
   justify-content: space-around;
 }
 
+
+
 .orderDetailModal {
   display: none;
   padding-right: 17px;
@@ -191,4 +193,10 @@ td .fa-trash {
   content: '';
   display: block;
   height: 50px;
+}
+
+tfoot::before {
+  content: '';
+  display: block;
+  height: 100px;
 }

@@ -6,12 +6,12 @@ default value for size (currently showing as blank) - is there a way to do this 
 
 order is not automatically totaling when the cartView page loads -PRIORITY 1
 
-add delete/update buttons to each cart item in cartView
-
-add back to menu button for cartView page and itemOrder page
-
 
 
 DONE:
 
 need to sync item add to any open order or create new order if user currently does not have one
+
+add back to menu button for cartView page and itemOrder page
+
+add delete/update buttons to each cart item in cartView

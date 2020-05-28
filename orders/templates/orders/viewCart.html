@@ -9,7 +9,7 @@ View Cart
 
 {% block body %}
 
-<h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart</h1>
+<h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart<button class="btn btn-primary">Back</button></h1>
   <table class="table" id="cartDisplay">
     <thead>
         <tr>
@@ -71,7 +71,7 @@ View Cart
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
         data-key="{{ key }}"
         data-description="Pinochio's Pizza - Order {{ object_list.0.order.id }}"
-        data-amount="{{ object_list.0.order.updateTotal }}"
+        data-amount="{{ paymentPrice }}"
         data-locale="auto">
     </script>
   </div>

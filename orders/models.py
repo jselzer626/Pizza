@@ -92,7 +92,7 @@ class Order(models.Model):
         return self.total
 
     def __str__(self):
-        return f"Order # {self.id} Total: {self.total}"
+        return f"Order #{self.id} Total: {self.total}"
 
 # this class will roll up to order and will contain the number and type of item being ordered. This will be the parent of Item Detail which holds individual details for each item ordered(i.e. size, toppings, etc.)
 class OrderDetail(models.Model):

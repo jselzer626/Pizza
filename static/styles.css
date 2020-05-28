@@ -20,6 +20,14 @@ i {
   margin-top: 50px;
 }
 
+.specialHeader button {
+  margin-left: 25px;
+}
+
+.stripe-button-el span {
+  background: red;
+}
+
 .container {
   min-height: 75vh;
   display: block;

@@ -36,13 +36,10 @@ class addGeneralItem(CreateView):
         return {'item': itemOrdered,
                 'order': currentOrder}
 
-    '''def form_valid(self, form):
-        order = Order.objects.get(user=self.request.user, completed=False)
-        print(f"Before: {order.total}")
-        order.updateTotal()
-        order.save()
-        print(f"After: {order.total}")
-        return super().form_valid(form)'''
+    # update item total based on selections made in form
+    def form_valid(self, form):
+        form.instance.updateTotal()
+        return super().form_valid(form)
 
     # this provides the item category so the view can be filtered based on what details need to be provided
 
@@ -61,10 +58,16 @@ class viewCart(ListView):
     def get_queryset(self):
         try:
             currentOrder = Order.objects.get(user=self.request.user, completed=False)
-            currentOrder.updateTotal
+            currentOrder.updateTotal()
         except Order.DoesNotExist:
             currentOrder = None
         return OrderDetail.objects.filter(order = currentOrder)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        currentOrder = Order.objects.get(user=self.request.user, completed=False)
+        context["paymentPrice"] = currentOrder.total * 100
+        return context
 
 class deleteItem(DeleteView):
 

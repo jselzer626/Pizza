@@ -6,7 +6,9 @@ default value for size (currently showing as blank) - is there a way to do this 
 
 order is not automatically totaling when the cartView page loads -PRIORITY 1
 
+change styling for login page
 
+user should be directed to some sort of landing page with a generic image carousel when they come to the site
 
 DONE:
 

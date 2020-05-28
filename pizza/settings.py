@@ -120,3 +120,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
+
+
+# payment processing keys
+STRIPE_SECRET_KEY = 'sk_test_9Sz0T0LTU3HPiQRjl8tPhlkq00jcfs5qAs'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_UuL8Evn9bhHThnj4WUxNuRUX00qTnlSHbY'

@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Order, MenuItem, OrderDetail, Category, PizzaTopping, CheesesteakTopping
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView
+import stripe
+import json
 
 # Create your views here.
 @login_required(login_url="users/")
@@ -34,6 +36,14 @@ class addGeneralItem(CreateView):
         return {'item': itemOrdered,
                 'order': currentOrder}
 
+    '''def form_valid(self, form):
+        order = Order.objects.get(user=self.request.user, completed=False)
+        print(f"Before: {order.total}")
+        order.updateTotal()
+        order.save()
+        print(f"After: {order.total}")
+        return super().form_valid(form)'''
+
     # this provides the item category so the view can be filtered based on what details need to be provided
 
     def get_context_data(self, **kwargs):
@@ -51,6 +61,7 @@ class viewCart(ListView):
     def get_queryset(self):
         try:
             currentOrder = Order.objects.get(user=self.request.user, completed=False)
+            currentOrder.updateTotal
         except Order.DoesNotExist:
             currentOrder = None
         return OrderDetail.objects.filter(order = currentOrder)

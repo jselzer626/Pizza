@@ -18,5 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let menuRedirect = document.querySelector('#emptyMessage') ? document.querySelector('#emptyMessage') : ''
   menuRedirect ? menuRedirect.querySelector('button').onclick = () => window.location.href = "loadMenu" : ''
 
+  //populate stripe widget with order number and payment amount
+  let footer = document.querySelector('tfoot')
+  let paymentDetails = document.querySelector(".stripe-button")
+  footer.querySelector('button').onclick = () => {
+    document.querySelector('#paymentConfirm').style.display="block"
+    //var orderId = document.querySelector('#orderNumber') ? document.querySelector('#orderNumber').dataset.order : ''
+    //orderId ? paymentDetails.dataset.description = `Order ${orderId}` : ''
+    total ? paymentDetails.dataset.amount = total * 100 : ''
+  }
+
+
 
 })

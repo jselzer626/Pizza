@@ -1,10 +1,15 @@
+from django import forms
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
+from django.forms import ModelForm, Textarea
 from django.contrib.auth.decorators import login_required
 from .models import Order, MenuItem, OrderDetail, Category, PizzaTopping, CheesesteakTopping
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
+from crispy_forms.bootstrap import StrictButton
 import stripe
 import json
 
@@ -20,9 +25,42 @@ def loadMenu(request):
     }
     return render(request, "orders/create.html", context)
 
+
+class addItemForm(forms.ModelForm):
+
+    class Meta:
+        model = OrderDetail
+        fields = ['order', 'item', 'quantity', 'toppings', 'notes', 'sandwichToppings', 'extraCheese', 'size']
+        widgets = {
+            'notes': Textarea(attrs={'cols':6, 'rows':3, 'placeholder': "Any special requests..."})
+        }
+
+    helper = FormHelper()
+    helper.form_class = "form-horizontal"
+    helper.label_class = 'col-lg-4'
+    helper.field_class = 'col-lg-8'
+    helper.layout = Layout(
+        'item',
+        'quantity',
+        'size',
+        'toppings',
+        'sandwichToppings',
+        'extraCheese',
+        'notes',
+        ButtonHolder(
+                Submit('submit', 'Add To Cart')
+            )
+    )
+
+    # formatting certain labels
+    def __init__(self, *args, **kwargs):
+        super(addItemForm, self).__init__(*args, **kwargs)
+        self.fields['sandwichToppings'].label = "Sandwich Toppings"
+        self.fields['extraCheese'].label = 'Extra Cheese? (check for yes)'
+
 class addGeneralItem(CreateView):
     model = OrderDetail
-    fields = ['order', 'item', 'quantity', 'toppings', 'notes', 'sandwichToppings', 'extraCheese', 'size']
+    form_class = addItemForm
     success_url = "loadMenu?message=itemAdded"
 
     def get_initial(self):
@@ -46,9 +84,10 @@ class addGeneralItem(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         itemId = self.request.GET.get('item', '')
-        cheeseSteak = True if MenuItem.objects.get(pk=itemId).name == "Steak + Cheese" else False
+        # checking if need to display toppings for steak + cheese
+        cheeseSteak = True if MenuItem.objects.get(pk=itemId).name.strip() == "Steak + Cheese" else False
         context['category'] = MenuItem.objects.filter(pk=itemId).first().category
-        context['cheesteak'] = cheeseSteak
+        context['cheesesteak'] = cheeseSteak
         return context
 
 class viewCart(ListView):
@@ -58,7 +97,6 @@ class viewCart(ListView):
     def get_queryset(self):
         try:
             currentOrder = Order.objects.get(user=self.request.user, completed=False)
-            currentOrder.updateTotal()
         except Order.DoesNotExist:
             currentOrder = None
         return OrderDetail.objects.filter(order = currentOrder)
@@ -72,4 +110,4 @@ class viewCart(ListView):
 class deleteItem(DeleteView):
 
     model = OrderDetail
-    success_url = reverse_lazy('viewCart')
+    success_url = reverse_lazy("viewCart")

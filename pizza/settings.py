@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,6 @@ STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
 # payment processing keys
 STRIPE_SECRET_KEY = 'sk_test_9Sz0T0LTU3HPiQRjl8tPhlkq00jcfs5qAs'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_UuL8Evn9bhHThnj4WUxNuRUX00qTnlSHbY'
+
+# form template pack
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

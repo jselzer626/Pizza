@@ -5,11 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   total ? document.querySelector("#orderTotalClean").innerHTML += total : ''
 
   //configure delete buttons
-  document.querySelectorAll('.fa-trash').forEach(button => {
-    button.addEventListener('click', e => {
-      var itemToDelete = e.target.id
+  document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {
+    link.addEventListener('click', e => {
       var deleteForm = document.querySelector("#deleteForm")
-      deleteForm.action = `deleteItem/${itemToDelete}/`
+      deleteForm.action = e.target.dataset.link
       deleteForm.submit()
     })
   })

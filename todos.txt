@@ -1,16 +1,20 @@
 TODO:
 
+change styling for login page
+
+user should be directed to some sort of landing page with a generic image carousel when they come to the site
+
+viewCart should display some sort of banner when item is deleted
+
+payment page (separate app?)
+
+DONE:
+
 need to fix toppings display for steak and cheese (not showing up)
 
 default value for size (currently showing as blank) - is there a way to do this with form in django
 
 order is not automatically totaling when the cartView page loads -PRIORITY 1
-
-change styling for login page
-
-user should be directed to some sort of landing page with a generic image carousel when they come to the site
-
-DONE:
 
 need to sync item add to any open order or create new order if user currently does not have one
 

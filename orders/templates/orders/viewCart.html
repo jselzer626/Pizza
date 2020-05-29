@@ -33,7 +33,15 @@ View Cart
         {% endif %}
         <td>{{ detail.quantity }}</td>
         <td>{{ detail.notes }}</td>
-        <td>${{ detail.updateTotal }}<i id="{{ detail.id }}" class="fas fa-trash"></i><i class="fas fa-pencil-alt"></i></td>
+        <td>${{ detail.updateTotal }}<div id="itemEditOptions" class="dropdown">
+          <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Edit</button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" data-action="delete" data-link="deleteItem/{{ detail.id }}/">Delete</a>
+            <a class="dropdown-item" href="#">Update</a>
+            </div>
+  <!--<button id="{{ detail.id }}" class="btn btn-primary btn-sm">Update</button>-->
+          </div>
+        </td>
       </tr>
       {% endfor %}
       </tbody>

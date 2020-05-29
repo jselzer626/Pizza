@@ -1,65 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block staticfile %}
+<script src="{% static 'scripts3.js' %}"></script>
+{% endblock %}
+{% load crispy_forms_tags %}
 {% block title %}
 Add Item
 {% endblock %}
 
 {% block body %}
 
-<h1 class="specialHeader">Add Item</h1>
-<form class="form" method="POST" id="orderForm">
+<h1 class="specialHeader"><i class="fas fa-pizza-slice"></i>Add Item<button class="btn btn-primary">Back</button></h1>
+<form class="form mx-auto" method="POST" id="orderForm">
 
   {% csrf_token %}
 
-  <div hidden>
-  {{ form.order }}
-  </div>
+  <span hidden id="category">{{ category }}</span>
+  <span hidden id="cheeseSteak">{{ cheesesteak }}</span>
+  <div hidden>{{ form.order }}</div>
 
-  {{ form.item.label_tag }}
-  {{ form.item }}
-  <br>
-  {{ form.quantity.label_tag }}
-  {{ form.quantity }}
-
-  {% if category.name == "PLT" %}
-
-  <br>
-  {{ form.size.label_tag }}
-  {{ form.size }}
-
-  {% elif category.name == "SUB" %}
-
-  <br>
-  {{ form.size.label_tag }}
-  {{ form.size }}
-  <br>
-  <label for="id_extraCheese">Extra Cheese?</label>
-  {{ form.extraCheese }}
-
-    {% if cheesesteak %}
-
-    <br>
-    {{ form.sandwichToppings.label_tag }}
-    {{ form.sandwichToppings }}
-
-    {% endif %}
-
-  {% elif category.name == "PZA" %}
-
-  <br>
-  {{ form.size.label_tag }}
-  {{ form.size }}
-  <br>
-  {{ form.toppings.label_tag }}
-  {{ form.toppings }}
-
-  {% endif %}
-
-  <br>
-  <textarea rows="4" cols="50" type="text" name="notes" max_length="64" id="id_notes" placeholder="Any special requests..."></textarea>
-
-<br>
-<button class="btn btn-primary" type="submit">Add To Cart</button>
+  {% crispy form %}
 
 </form>
 

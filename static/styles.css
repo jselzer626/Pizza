@@ -25,7 +25,13 @@ i {
 }
 
 .stripe-button-el span {
-  background: red;
+  background: #bf0000 !important;
+  border: none !important;
+  font-family: sans-serif !important;
+  font-size: 16px; !important;
+  font-weight: normal !important;
+  height: 36px !important;
+  padding: .375rem .75rem !important;
 }
 
 .container {
@@ -150,7 +156,7 @@ tbody button {
 }
 
 .specialHeader {
-  width: 50%;
+  width: 65%;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 3%;
@@ -163,6 +169,10 @@ tbody button {
   padding: 10px;
 }
 
+#orderForm {
+  width: 65%;
+}
+
 #orderForm button {
   margin-top: 20px;
 }
@@ -173,7 +183,6 @@ tfoot > tr {
 
 #cartDisplay tbody {
   display: table-row-group;
-  text-align: center;
 }
 
 .alert {
@@ -210,4 +219,17 @@ tfoot::before {
   width: 60%;
   padding-bottom: 10px;
   border-bottom: solid 1px black;
+}
+
+.buttonHolder {
+  border-top: 1px solid black;
+}
+
+.buttonHolder input {
+  margin-top: 3%;
+}
+
+#itemEditOptions {
+  display: inline;
+  float: right;
 }

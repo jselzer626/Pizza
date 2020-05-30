@@ -68,6 +68,11 @@ footer div {
 
 .menuHeader p {
   margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.menuHeader p:hover {
+  font-weight: bold;
 }
 
 .userMenu p {

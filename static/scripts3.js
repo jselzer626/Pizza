@@ -1,5 +1,5 @@
 // conditionally show menu items based on type of category
-componentsToHide = {"Pasta": ["toppings", "extraCheese", "sandwichToppings", "size"],
+let componentsToHide = {"Pasta": ["toppings", "extraCheese", "sandwichToppings", "size"],
                     "Pizza": ["extraCheese", "sandwichToppings"],
                     "Salads": ["toppings", "extraCheese", "sandwichToppings", "size"],
                     "Sandwiches": ["toppings"],

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 Login
 {% endblock %}
@@ -10,16 +11,17 @@ Login
   <h4 class="display-4">Login</h4>
   <form class="form" action="{% url 'login' %}" method="post">
     {% csrf_token %}
-    <label>Username</label>
-    <br>
-    <input type="text" name="username">
-    <br>
+    <div class="form-group col-md-6">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" name="username">
+    </div>
+    <div class="form-group col-md-6">
     <label>Password</label>
-    <br>
-    <input type="password" name="password">
-    <br>
-    <br>
+    <input type="password" class="form-control" name="password">
+    </div>
+    <div class="form-group col-md-6">
     <button class='btn btn-primary' type="submit">Login</button>
+    </div>
   </form>
   <a class="lead" href="register">No account yet?</a>
 </div>

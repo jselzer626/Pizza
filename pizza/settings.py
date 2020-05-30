@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'crispy_forms',
 ]
 
+THIRD_PARTY_APPS = [
+    "stripe", # stripe for payments
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -7,22 +7,30 @@ Register
 {% block body %}
 
 <div class="signUpForm">
-  <h4 class="display-4">Register</h4>
-  <form action="{% url 'register_confirm' %}" method="post">
+  <h1 class="mx-auto"><i class="far fa-user"></i>Sign Up</h1>
+  <form class="form mx-auto" action="{% url 'register_confirm' %}" method="post">
     {% csrf_token %}
-    <label class="lead">Username</label><br>
-    <input type="text"name="new_username"><br>
-    <label class="lead">Password</label><br>
-    <input type="password" name="new_password">
-    <br>
-    <br>
-    <button class='btn btn-primary' type="submit">Create Account</button>
+    <div class="form-group">
+      <label class="lead" for="username">Username</label>
+      <input type="text" class="form-control" name="username">
+    </div>
+    <div class="form-group">
+    <label class="lead" for="password">Password</label>
+    <input type="password" class="form-control" name="password">
+    </div>
+    <div class="form-group">
+    <label class="lead" for="password">Confirm Password</label>
+    <input type="password" class="form-control" name="confirm_password">
+    </div>
+    <div class="form-group">
+    <label class="lead" for="password">Email</label>
+    <input type="email" class="form-control" name="password">
+    </div>
+    <div>
+    <button class='btn btn-primary' type="submit">Login</button>
+    </div>
   </form>
-</div>
-<div id="belowSignUpForm">
-  <div>
-    <p class="lead">Creating an account gives you access to special deals and promos!</p>
-  </div>
+  <a class="lead" href="/">Already have an account?</a>
 </div>
 
 {% endblock %}

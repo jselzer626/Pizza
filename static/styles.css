@@ -204,6 +204,7 @@ tbody button {
   margin-top: 20px;
 }
 
+
 tfoot > tr {
   background-color: rgba(0,0,0,.10);
 }
@@ -259,4 +260,23 @@ tfoot::before {
 #itemEditOptions {
   display: inline;
   float: right;
+}
+
+#div_id_item select {
+  font-weight: bold;
+}
+
+#div_id_toppings ul {
+  margin-top: 2%;
+  margin-left: 50%;
+  margin-bottom: 0px;
+}
+
+#div_id_toppings p {
+  font-weight: bold;
+  margin-bottom: 1%;
+}
+
+#div_id_toppings i {
+  margin-left: 20%;
 }

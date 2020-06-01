@@ -35,7 +35,7 @@ Create Order
   <tbody id="{{ category }}">
   {% for menuItem in category.menuitem_set.all %}
     <tr>
-      <td colspan="4">{{ menuItem.name }} {{menuItem.pizzaStyle}}</td>
+      <td colspan="4">{{ menuItem }}</td>
       {% if category.name == 'PST' %}
       <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" >Add</button></td>
       {% elif category.name == 'SLD' %}

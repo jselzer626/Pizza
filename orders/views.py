@@ -40,7 +40,6 @@ class addItemForm(forms.ModelForm):
     helper.label_class = 'col-lg-4'
     helper.field_class = 'col-lg-8'
     helper.layout = Layout(
-        'item',
         'quantity',
         'size',
         'toppings',
@@ -84,10 +83,12 @@ class addGeneralItem(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         itemId = self.request.GET.get('item', '')
-        # checking if need to display toppings for steak + cheese
-        cheeseSteak = True if MenuItem.objects.get(pk=itemId).name.strip() == "Steak + Cheese" else False
-        context['category'] = MenuItem.objects.filter(pk=itemId).first().category
-        context['cheesesteak'] = cheeseSteak
+        item = MenuItem.objects.get(pk=itemId)
+
+        context['category'] = item.category
+        context['cheesesteak'] = True if item.name.strip() == "Steak + Cheese" else False
+        context['toppingsCount'] = item.pizzaToppingsCount
+        context['item'] = item
         return context
 
 class viewCart(ListView):

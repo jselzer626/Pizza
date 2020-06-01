@@ -73,7 +73,10 @@ class MenuItem(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name} {self.get_pizzaStyle_display()}"
+        if self.pizzaStyle != '':
+            return f"{self.name} - ({self.get_pizzaStyle_display()})"
+        else:
+            return f"{self.name}"
 
 class Order(models.Model):
 

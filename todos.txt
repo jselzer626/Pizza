@@ -1,14 +1,16 @@
 TODO:
 
-change styling for login page
+images for menu items? 
 
 user should be directed to some sort of landing page with a generic image carousel when they come to the site
 
 viewCart should display some sort of banner when item is deleted
 
-payment page (separate app?)
+edit certain item names to be more descriptive
 
 DONE:
+
+change styling for login page
 
 need to fix toppings display for steak and cheese (not showing up)
 

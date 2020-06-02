@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let category = document.querySelector("#category").innerHTML
     //cheeseSteak is a context variable that indicates whether or not the sandiwch toppings select should be displayed (only available if user selects cheesesteak)
     let cheeseSteak = document.querySelector("#cheeseSteak").innerHTML
+    let toppingSelectBox = document.querySelector("#id_toppings") ? document.querySelector("#id_toppings") : ''
 
     let hideMenuComponents = category => {
 
@@ -23,6 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let updateToppings = (chosenToppings, requiredToppings) => {
       return `Selected: (${requiredToppings - chosenToppings} Remaining)`
+    }
+
+    let errorDisplay = (messageDisplaySpace, errorIndicationSpace, message) => {
+      errorIndicationSpace.style.border = "3px solid red"
+      messageDisplaySpace.innerHTML = message
+      messageDisplaySpace.style.display = "block"
+    }
+
+    let errorMessageClear = (errorDisplaySpace, errorIndicationSpace) => {
+      errorDisplaySpace.style.display = "none"
+      errorIndicationSpace.style.border = "none"
     }
 
     // this hides certain parameters for the menu item based on the type of item (i.e. salad has no pizza toppings etc.)
@@ -48,14 +60,20 @@ document.addEventListener("DOMContentLoaded", () => {
       toppingSelector.querySelector("label").innerHTML += `<br>(Please choose ${toppingsCount})`
       var toppingDisplayList = document.createElement('ul')
       var header = document.createElement('p')
+      var errorSpace = document.createElement('p')
+      errorSpace.className = "text-danger"
       header.innerHTML = `Selected: (${toppingsCount} Remaining)`
       header.style.display = "none"
+      errorSpace.style.display = "none"
+      toppingSelector.append(errorSpace)
       toppingDisplayList.append(header)
       toppingSelector.append(toppingDisplayList)
       toppingSelector.querySelectorAll('option').forEach(selector => {
         selector.addEventListener('click', e => {
 
           var toppingToAdd = e.target.value
+          //clear any error messages
+          errorMessageClear(errorSpace, toppingSelectBox)
 
           //display selected list header if first topping chosen
           header.style.display == "none" ? header.style.display = "block" : ''
@@ -70,9 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
               // configure topping delete button -this updates the array containing topping ID's and removes the li with the topping name from the DOM
               toppingDeleteButton.addEventListener('click', e => {
 
+                errorMessageClear(errorSpace, toppingSelectBox)
                 toppings = toppings.filter(topping => topping != e.target.parentElement.value)
                 e.target.parentElement.remove()
                 header.innerHTML = updateToppings(toppings.length, parseInt(toppingsCount))
+                toppings.length == 0 ? header.style.display = "none" : ''
 
               })
 
@@ -81,6 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
             toppingDisplayList.append(toppingDisplayItem)
             header.innerHTML = updateToppings(toppings.length, parseInt(toppingsCount))
           }
+          else if (toppings.includes(toppingToAdd))
+            errorDisplay(errorSpace, toppingSelectBox, "You already chose that topping")
+          else if (toppings.length == toppingsCount)
+            errorDisplay(errorSpace, toppingSelectBox, "Max toppings added. Please delete one before adding")
         })
       })
 
@@ -88,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('form').onsubmit = e => {
       if (toppings.length != parseInt(toppingsCount)) {
         e.preventDefault()
-        document.querySelector("#id_toppings").style.border = "3px solid red"
+        errorDisplay(toppingSelector.querySelector(".text-danger"), toppingSelectBox, "Please add more toppings")
       } else {
         toppings.forEach(topping => {
           toppingSelector.querySelector(`option[value="${topping}"]`).selected = true

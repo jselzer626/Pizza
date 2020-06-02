@@ -267,8 +267,10 @@ tfoot::before {
 }
 
 #div_id_toppings ul {
+  width: 40%;
+  text-align: left;
   margin-top: 2%;
-  margin-left: 50%;
+  margin-left: 40%;
   margin-bottom: 0px;
 }
 
@@ -279,4 +281,15 @@ tfoot::before {
 
 #div_id_toppings i {
   margin-left: 20%;
+  cursor: pointer;
+  float: right;
+  margin-top: 3%;
+}
+
+.text-danger {
+  margin-top: 1%;
+  margin-bottom: none;
+  margin-left: 20%;
+  width: 100%;
+  text-align: center;
 }

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block staticfile %}
+<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+{% endblock %}
+{% block title %}
+User Homepage
+{% endblock %}
+
+{% block body %}
+<div class="hero-image" id="main-hero-image">
+  <div class="hero-text">
+    <h1 id="main-header">Pinochio's</h1>
+    <p class="lead">Award Winning and Delicious!</p>
+  </div>
+  <div class="menuHeader" id="startMenu">
+    <p class="lead"><a href="users/">Login</a></p>
+    <p class="lead"><a href="loadMenu">Menu</a></p>
+    <p class="lead"><a href="#">About</a></p>
+  </div>
+</div>
+{% endblock %}

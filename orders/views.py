@@ -14,9 +14,8 @@ import stripe
 import json
 
 # Create your views here.
-@login_required(login_url="users/")
 def index(request):
-    return render(request, "orders/userhome.html")
+    return render(request, "orders/index.html")
 
 def loadMenu(request):
     context = {

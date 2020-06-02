@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let menuHeader = document.querySelector('.menuHeader')
     let menu = document.querySelector('table')
     let alert = document.querySelector(".alert") ? document.querySelector(".alert") : ''
+    let bannerImage = document.querySelector(".hero-image")
 
     //select pasta
     document.querySelector('#Pasta').classList.add('selected')
@@ -20,7 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
         previous.classList.remove('selected')
 
         //add bolding and visibility to current section
-        var sectionToDisplay = document.getElementById(`${e.target.dataset.section}`)
+        var targetCategory = e.target.dataset.section
+        bannerImage.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(static/images/${targetCategory}_banner.jpg)`
+        bannerImage.querySelector('h1').innerHTML = targetCategory
+        var sectionToDisplay = document.getElementById(`${targetCategory}`)
         e.target.style.fontWeight = 'bold'
         sectionToDisplay.classList.add('selected')
       })

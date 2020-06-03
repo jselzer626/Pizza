@@ -20,9 +20,10 @@ Login
     <input type="password" class="form-control" name="password">
     </div>
     <div>
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
     <button class='btn btn-primary' type="submit">Login</button>
     </div>
   </form>
-  <a class="lead" href="register">No account yet?</a>
+  <a class="lead" href="register?next={{request.GET.next}}">No account yet?</a>
 </div>
 {% endblock %}

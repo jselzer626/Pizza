@@ -4,7 +4,7 @@
 <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 {% endblock %}
 {% block title %}
-User Homepage
+Home
 {% endblock %}
 
 {% block body %}
@@ -14,7 +14,9 @@ User Homepage
     <p class="lead">Award Winning and Delicious!</p>
   </div>
   <div class="menuHeader" id="startMenu">
+    {% if not user.username %}
     <p class="lead"><a href="users/">Login</a></p>
+    {% endif %}
     <p class="lead"><a href="loadMenu">Menu</a></p>
     <p class="lead"><a href="#">About</a></p>
   </div>

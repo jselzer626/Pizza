@@ -27,10 +27,11 @@ Register
     <input type="email" class="form-control" name="password">
     </div>
     <div>
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
     <button class='btn btn-primary' type="submit">Login</button>
     </div>
   </form>
-  <a class="lead" href="/">Already have an account?</a>
+  <a class="lead" href="/users/?next={{ request.GET.next }}">Already have an account?</a>
 </div>
 
 {% endblock %}

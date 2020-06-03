@@ -164,13 +164,16 @@ footer {
   background-image: linear-gradient(to right, #bf0000, red);
 }
 
-.navbar > a {
-  color: white;
+.navbar-brand {
   font-weight: bold;
 }
 
-.nav-item > a {
+.navbar a {
   color: white;
+}
+
+.dropdown a {
+  color: black;
 }
 
 #userDetails {

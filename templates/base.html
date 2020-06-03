@@ -24,6 +24,10 @@
             <a class="dropdown-item" href="users/logout">Logout</a>
           </div>
       </div>
+      {% else %}
+      <a class="nav-link lead" href="/">Home</a>
+      <a class="nav-link lead" href="loadMenu">Menu</a>
+      <a class="nav-link lead" href="users/">Login</a>
       {% endif %}
     </ul>
   </nav>

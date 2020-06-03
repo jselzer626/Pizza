@@ -4,11 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic.edit import CreateView, DeleteView
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
-from django.forms import ModelForm
-from crispy_forms.bootstrap import StrictButton
+
 
 # Create your views here.
 def index(request):
@@ -25,20 +21,22 @@ def register(request):
 def login_view(request):
     username = request.POST["username"]
     password = request.POST["password"]
+    next = request.POST.get('next') if request.POST.get('next') != '' else "/"
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect("/")
+        return HttpResponseRedirect(next)
     else:
         return render(request, "users/login.html", {"message": "Invalid Credentials"})
 
 def register_confirm(request):
     username = request.POST["new_username"]
     password = request.POST["new_password"]
+    next = request.POST.get('next') if request.POST.get('next') != '' else "/"
     user = User.objects.create_user(username=username, password=password)
     user.save()
     login(request, user)
-    return redirect("/")
+    return HttpResponseRedirect(next)
 
 def logout_view(request):
     logout(request)

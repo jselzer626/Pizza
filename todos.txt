@@ -1,14 +1,16 @@
 TODO:
 
-images for menu items? 
-
-user should be directed to some sort of landing page with a generic image carousel when they come to the site
+finish updateView
 
 viewCart should display some sort of banner when item is deleted
 
+DONE:
+
+user should be directed to some sort of landing page with a generic image carousel when they come to the site
+
 edit certain item names to be more descriptive
 
-DONE:
+images for menu items? (categories)
 
 change styling for login page
 

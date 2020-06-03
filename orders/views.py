@@ -6,7 +6,7 @@ from django.forms import ModelForm, Textarea
 from django.contrib.auth.decorators import login_required
 from .models import Order, MenuItem, OrderDetail, Category, PizzaTopping, CheesesteakTopping
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import StrictButton
@@ -56,6 +56,15 @@ class addItemForm(forms.ModelForm):
         self.fields['sandwichToppings'].label = "Sandwich Toppings"
         self.fields['extraCheese'].label = 'Extra Cheese? (check for yes)'
 
+class editItem(UpdateView):
+    model = OrderDetail
+    form_class = addItemForm
+    template_name = "orders/editItem.html"
+    success_url = reverse_lazy("viewCart")
+
+    def get_initial(self):
+        print(self.kwargs['pk'])
+
 class addGeneralItem(CreateView):
     model = OrderDetail
     form_class = addItemForm
@@ -63,7 +72,7 @@ class addGeneralItem(CreateView):
 
     def get_initial(self):
         itemId = self.request.GET.get('item', '')
-        itemOrdered = MenuItem.objects.filter(pk=itemId).first()
+        itemOrdered = MenuItem.objects.get(pk=itemId)
         try:
             currentOrder = Order.objects.get(user=self.request.user, completed=False)
         except Order.DoesNotExist:

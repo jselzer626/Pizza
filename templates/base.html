@@ -26,8 +26,8 @@
       </div>
       {% else %}
       <a class="nav-link lead" href="/">Home</a>
-      <a class="nav-link lead" href="loadMenu">Menu</a>
-      <a class="nav-link lead" href="users/">Login</a>
+      <a class="nav-link lead" href="{% url 'loadMenu' %}">Menu</a>
+      <a class="nav-link lead" href="{% url 'loginIndex' %}">Login</a>
       {% endif %}
     </ul>
   </nav>

@@ -62,26 +62,24 @@ class editItem(UpdateView):
     template_name = "orders/editItem.html"
     success_url = reverse_lazy("viewCart")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(context['object'].item)
-        return context
+    def form_valid(self, form):
+        form.instance.updateTotal()
+        return super().form_valid(form)
 
 class addGeneralItem(CreateView):
     model = OrderDetail
     form_class = addItemForm
-    success_url = "loadMenu?message=itemAdded"
+    success_url = "viewCart"
 
     def get_initial(self):
-        itemId = self.request.GET.get('item', '')
-        itemOrdered = MenuItem.objects.get(pk=itemId)
+
         try:
             currentOrder = Order.objects.get(user=self.request.user, completed=False)
         except Order.DoesNotExist:
             currentOrder = Order(user=self.request.user)
             currentOrder.save()
-        return {'item': itemOrdered,
-                'order': currentOrder}
+        return {'order': currentOrder,
+                'item': self.kwargs['pk']}
 
     # update item total based on selections made in form
     def form_valid(self, form):
@@ -92,13 +90,7 @@ class addGeneralItem(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        itemId = self.request.GET.get('item', '')
-        item = MenuItem.objects.get(pk=itemId)
-
-        context['category'] = item.category
-        context['cheesesteak'] = True if item.name.strip() == "Steak + Cheese" else False
-        context['toppingsCount'] = item.pizzaToppingsCount
-        context['item'] = item
+        context['item'] = MenuItem.objects.get(pk=self.kwargs['pk'])
         return context
 
 class viewCart(ListView):

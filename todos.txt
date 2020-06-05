@@ -1,10 +1,10 @@
 TODO:
 
-finish updateView
-
-viewCart should display some sort of banner when item is deleted
+banner for detailing that item was added / deleted (kwargs?)
 
 DONE:
+
+finish updateView
 
 user should be directed to some sort of landing page with a generic image carousel when they come to the site
 

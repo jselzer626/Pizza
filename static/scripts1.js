@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.querySelectorAll('button').forEach(button => {
       button.addEventListener('click', e => {
         itemId = e.target.dataset.itemid
-        window.location.href = `addGeneralItem?item=${itemId}`
+        window.location.href = `addGeneralItem/${itemId}/`
       })
     })
 

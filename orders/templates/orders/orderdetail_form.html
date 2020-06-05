@@ -10,19 +10,21 @@ Add Item
 
 {% block body %}
 
-<h1 class="specialHeader"><i class="fas fa-pizza-slice"></i>Add Item<button class="btn btn-primary">Back</button></h1>
+<h1 class="specialHeader" data-action="add"><i class="fas fa-pizza-slice"></i>Add Item<button class="btn btn-primary">Back</button></h1>
 <div class="form-group row mx-auto" id="orderForm">
+
   <label class="col-form-label col-lg-4">Item:</label>
-  <label class="col-form-label col-lg-8"><b>{{ item }}</b></label>
+  <label class="col-form-label col-lg-8" id="itemName" data-name="{{item}}"><b>{{ item }}</b></label>
+
 </div>
 <form class="form mx-auto" method="POST" id="orderForm">
 
   {% csrf_token %}
 
   <!--Context variables to help determine which fields of the item add form to display-->
-  <span hidden id="toppingsCount">{{ toppingsCount }}</span>
-  <span hidden id="category">{{ category }}</span>
-  <span hidden id="cheeseSteak">{{ cheesesteak }}</span>
+  <a hidden id="back" href="{% url 'loadMenu' %}"></a>
+  <span hidden id="toppingsCount">{{ item.pizzaToppingsCount }}</span>
+  <span hidden id="category">{{ item.category }}</span>
   <div hidden>{{ form.order }}{{ form.item }}</div>
 
   {% crispy form %}

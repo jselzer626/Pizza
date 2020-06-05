@@ -8,12 +8,15 @@ let componentsToHide = {"Pasta": ["toppings", "extraCheese", "sandwichToppings",
 document.addEventListener("DOMContentLoaded", () => {
 
     let toppings = []
+    //if this page is being accessed to edit an existing order item
+    let currentToppings = (Array.from(document.querySelector("#id_toppings"))).filter(option => option.selected == true)
     let sizeSelector = document.querySelector("#div_id_size") ? document.querySelector("#div_id_size") : ''
     let toppingSelector = document.querySelector("#div_id_toppings") ? document.querySelector("#div_id_toppings") : ''
     let category = document.querySelector("#category").innerHTML
-    //cheeseSteak is a context variable that indicates whether or not the sandiwch toppings select should be displayed (only available if user selects cheesesteak)
-    let cheeseSteak = document.querySelector("#cheeseSteak").innerHTML
+    // if item is steak and cheese then show sandwichToppings field
+    let cheesesteak = document.querySelector("#itemName").dataset.name == "Steak + Cheese Sandwich" ? true : false
     let toppingSelectBox = document.querySelector("#id_toppings") ? document.querySelector("#id_toppings") : ''
+
 
     let hideMenuComponents = category => {
 
@@ -39,14 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // this hides certain parameters for the menu item based on the type of item (i.e. salad has no pizza toppings etc.)
     hideMenuComponents(category)
+    category == "Sandwiches" ? !cheesesteak ? document.querySelector("#div_id_sandwichToppings").style.display = "none" : '' : ''
     // this fixes the menu item selection - user can go back to the menu page to select a different item
     // document.querySelector("select[name='item']").setAttribute("disabled", true)
 
     // determine whether or not to display cheesesteak toppings
-    category == "Sandwiches" ? cheeseSteak == "False" ? document.querySelector("#div_id_sandwichToppings").style.display = "none" : '' : ''
 
     //configure back button
-    document.querySelector('button').addEventListener('click', () => window.location.href = "loadMenu")
+    document.querySelector('button').addEventListener('click', () => document.querySelector("#back").click())
 
     //remove none option from size select drop down
     if (sizeSelector) {
@@ -91,6 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 errorMessageClear(errorSpace, toppingSelectBox)
                 toppings = toppings.filter(topping => topping != e.target.parentElement.value)
                 e.target.parentElement.remove()
+                toppingSelector.querySelector(`option[value='${e.target.parentElement.value}']`).selected == true ? toppingSelector.querySelector(`option[value='${e.target.parentElement.value}']`).selected = false : ''
+                //toppingSelector.querySelector(`[value='${e.target.parentElement.value}']`).selected = true ?   toppingSelector.querySelector(`[value=${e.target.parentElement.value}]`).selected = false : ''
                 header.innerHTML = updateToppings(toppings.length, parseInt(toppingsCount))
                 toppings.length == 0 ? header.style.display = "none" : ''
 
@@ -109,6 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 
     }
+    // if editing the item and item is a pizza than call existing process for each of the selected toppings
+    currentToppings.length > 0 ? currentToppings.forEach(option => option.click()) : ''
+
     document.querySelector('form').onsubmit = e => {
       if (toppings.length != parseInt(toppingsCount)) {
         e.preventDefault()

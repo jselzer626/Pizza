@@ -108,7 +108,7 @@ class viewCart(ListView):
         origin = self.request.headers['Referer']
         context = super().get_context_data(**kwargs)
         currentOrder = Order.objects.get(user=self.request.user, completed=False)
-        context['message'] = "Item added" if "add" in origin else ("Item updated" if "edit" in origin else ("Item Deleted" if 'view' in origin else ''))
+        context['message'] = "Item added!" if "add" in origin else ("Item updated!" if "edit" in origin else ("Item deleted!" if 'view' in origin else ''))
         context["paymentPrice"] = currentOrder.total * 100
         return context
 

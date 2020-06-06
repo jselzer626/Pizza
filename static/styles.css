@@ -249,6 +249,10 @@ td .fa-trash {
   height: 50px;
 }
 
+#emptyMessage {
+  text-align: center;
+}
+
 tfoot::before {
   content: '';
   display: block;

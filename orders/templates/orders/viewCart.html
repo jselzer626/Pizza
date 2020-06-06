@@ -14,7 +14,8 @@ View Cart
   <p class="lead"><b>{{ message }}</b></p>
 </div>
 {% endif %}
-<h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart<button class="btn btn-primary">Back</button></h1>
+<h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart<button class="btn btn-primary">Back</button><a hidden href = "{% url 'loadMenu' %}"></a></h1>
+
   <table class="table" id="cartDisplay">
     <thead>
         <tr>

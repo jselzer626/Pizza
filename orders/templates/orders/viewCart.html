@@ -9,6 +9,11 @@ View Cart
 
 {% block body %}
 
+{% if message %}
+<div class="alert" role="alert">
+  <p class="lead"><b>{{ message }}</b></p>
+</div>
+{% endif %}
 <h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart<button class="btn btn-primary">Back</button></h1>
   <table class="table" id="cartDisplay">
     <thead>
@@ -36,7 +41,7 @@ View Cart
         <td>${{ detail.updateTotal }}<div id="itemEditOptions" class="dropdown">
           <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Edit</button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" data-action="delete" data-link="deleteItem/{{ detail.id }}/">Delete</a>
+            <a class="dropdown-item" data-action="delete" data-link="deleteItem/{{ detail.id }}/" >Delete</a>
             <a class="dropdown-item" data-action="edit" href="editItem/{{ detail.id }}/">Update</a>
             </div>
   <!--<button id="{{ detail.id }}" class="btn btn-primary btn-sm">Update</button>-->

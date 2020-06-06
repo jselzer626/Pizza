@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //add bolding and visibility to current section
         var targetCategory = e.target.dataset.section
-        bannerImage.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(static/images/${targetCategory}_banner.jpg)`
+        bannerImage.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/static/images/${targetCategory}_banner.jpg)`
+        console.log(bannerImage.style.backgroundImage)
         bannerImage.querySelector('h1').innerHTML = targetCategory
         var sectionToDisplay = document.getElementById(`${targetCategory}`)
         e.target.style.fontWeight = 'bold'
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     //configure alert button if there
-    alert ? alert.querySelector('button').onclick = () => window.location.href = "viewCart" : ''
+    alert ? alert.querySelector('button').onclick = () => alert.querySelector('a').click() : ''
 
 // end of DOMcontentLoaded
 })

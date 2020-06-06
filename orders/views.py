@@ -18,8 +18,8 @@ def index(request):
     return render(request, "orders/index.html")
 
 def loadMenu(request):
+
     context = {
-        'message': request.GET.get('message', ''),
         'categories': Category.objects.all()
     }
     return render(request, "orders/create.html", context)
@@ -69,7 +69,7 @@ class editItem(UpdateView):
 class addGeneralItem(CreateView):
     model = OrderDetail
     form_class = addItemForm
-    success_url = "viewCart"
+    success_url = reverse_lazy("viewCart")
 
     def get_initial(self):
 
@@ -105,8 +105,10 @@ class viewCart(ListView):
         return OrderDetail.objects.filter(order = currentOrder)
 
     def get_context_data(self, **kwargs):
+        origin = self.request.headers['Referer']
         context = super().get_context_data(**kwargs)
         currentOrder = Order.objects.get(user=self.request.user, completed=False)
+        context['message'] = "Item added" if "add" in origin else ("Item updated" if "edit" in origin else ("Item Deleted" if 'view' in origin else ''))
         context["paymentPrice"] = currentOrder.total * 100
         return context
 

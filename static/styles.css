@@ -232,6 +232,7 @@ tfoot > tr {
 .alert {
   height: 7%;
   margin-top: 10px;
+  background-color: rgba(0,0,0,.15);
 }
 
 .alert button {

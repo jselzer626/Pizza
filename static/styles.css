@@ -239,6 +239,13 @@ tfoot > tr {
   margin-left: 15px;
 }
 
+
+.alert p {
+  margin-top: .75%;
+  font-weight: 400;
+}
+
+
 td .fa-trash {
   margin-left: 15%;
 }

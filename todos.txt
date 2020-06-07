@@ -1,8 +1,15 @@
 TODO:
 
-banner for detailing that item was added / deleted (kwargs?)
+order edit page for system admins (mark order as complete)
+
+send email to user once order is completed
+
+...then done!
+
 
 DONE:
+
+banner for detailing that item was added / deleted (kwargs?)
 
 finish updateView
 

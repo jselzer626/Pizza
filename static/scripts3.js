@@ -8,6 +8,8 @@ let componentsToHide = {"Pasta": ["toppings", "extraCheese", "sandwichToppings",
 document.addEventListener("DOMContentLoaded", () => {
 
     let toppings = []
+    let action = document.querySelector('h1').dataset.action
+    console.log(action)
     //if this page is being accessed to edit an existing order item
     let currentToppings = (Array.from(document.querySelector("#id_toppings"))).filter(option => option.selected == true)
     let sizeSelector = document.querySelector("#div_id_size") ? document.querySelector("#div_id_size") : ''
@@ -43,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // this hides certain parameters for the menu item based on the type of item (i.e. salad has no pizza toppings etc.)
     hideMenuComponents(category)
     category == "Sandwiches" ? !cheesesteak ? document.querySelector("#div_id_sandwichToppings").style.display = "none" : '' : ''
+    //change header button to edit if update page
+    action == "edit" ? document.querySelector('#submit-id-submit').value = "Update" : ''
     // this fixes the menu item selection - user can go back to the menu page to select a different item
     // document.querySelector("select[name='item']").setAttribute("disabled", true)
 

@@ -4,6 +4,7 @@ from . import views
 from orders.views import addGeneralItem, viewCart, deleteItem, editItem
 from django.contrib.auth.decorators import login_required
 
+
 # should be for a welcome page
 urlpatterns = [
     path("", views.index, name="index"),

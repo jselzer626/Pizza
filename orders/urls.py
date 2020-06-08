@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from orders.views import addGeneralItem, viewCart, deleteItem, editItem
+from orders.views import addGeneralItem, viewCart, deleteItem, editItem, orderList
 from django.contrib.auth.decorators import login_required
 
 
@@ -12,5 +12,6 @@ urlpatterns = [
     path("addGeneralItem/<int:pk>/", login_required(login_url="users/")(addGeneralItem.as_view()), name="addGeneralItem"),
     path("editItem/<int:pk>/", editItem.as_view(), name="editItem"),
     path("viewCart", viewCart.as_view(), name="viewCart"),
-    path("deleteItem/<int:pk>/", deleteItem.as_view(), name="deleteOrderItem")
+    path("deleteItem/<int:pk>/", deleteItem.as_view(), name="deleteOrderItem"),
+    path("viewOrders", orderList.as_view(), name="viewOrders")
 ]

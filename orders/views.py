@@ -112,6 +112,11 @@ class viewCart(ListView):
         context["paymentPrice"] = currentOrder.total * 100
         return context
 
+class orderList(ListView):
+
+    model = Order
+    template_name = "orders/viewOrders.html"
+
 class deleteItem(DeleteView):
 
     model = OrderDetail

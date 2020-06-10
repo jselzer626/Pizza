@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //editing display of total
   let total = document.querySelector("#orderTotalRaw") ? parseFloat(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
   let headerSpace = document.querySelector(".specialHeader")
-  total ? document.querySelector("#orderTotalClean").innerHTML += total : ''
 
   //configure delete buttons
   document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {

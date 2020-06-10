@@ -55,17 +55,14 @@ View Cart
         <tr>
         <td id="orderNumber" data-order="{{ object_list.0.order.id }}"><b>Order #: </b>{{ object_list.0.order.id }}</td>
         <td colspan="2"><b>Last Updated: </b>{{ object_list.0.order.lastUpdated }}</td>
-        <td><b>Total: </b><span id="orderTotalClean">$</span></td>
+        <td><b>Total: </b>${{ object_list.0.order.total }}</td>
         <td><button class="btn btn-primary">Checkout</button></td>
         </tr>
       </tfoot>
   {% else %}
     <tbody id="emptyMessage">
       <tr>
-      <td colspan="5" class="lead"><b>Your cart is empty!</b></td>
-      </tr>
-      <tr>
-      <td colspan="5"><button class="btn btn-primary">View Menu</button></td>
+      <td colspan="5" class="lead" id="emptyCartMessage"><b>Your cart is empty!</b></td>
       </tr>
     </tbody>
   {% endif %}
@@ -76,18 +73,6 @@ View Cart
     {% csrf_token %}
     <input type="submit" value="DELETE">
     </form>
-  </div>
-  <div id="paymentConfirm">
-    <br>
-    <p class="lead">If the above details are correct please proceed to payment by using the button below.<br>
-      All information entered is processed securely by <a href="stripe.com">Stripe</a>.</p>
-        <br>
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-        data-key="{{ key }}"
-        data-description="Pinochio's Pizza - Order {{ object_list.0.order.id }}"
-        data-amount="{{ paymentPrice }}"
-        data-locale="auto">
-    </script>
   </div>
 
 {% endblock %}

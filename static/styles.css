@@ -24,16 +24,6 @@ i {
   margin-left: 25px;
 }
 
-.stripe-button-el span {
-  background: #bf0000 !important;
-  border: none !important;
-  font-family: sans-serif !important;
-  font-size: 16px; !important;
-  font-weight: normal !important;
-  height: 36px !important;
-  padding: .375rem .75rem !important;
-}
-
 .container {
   min-height: 75vh;
   display: block;
@@ -253,7 +243,7 @@ td .fa-trash {
 #emptyMessage::before {
   content: '';
   display: block;
-  height: 50px;
+  height: 75px;
 }
 
 #emptyMessage {
@@ -375,4 +365,13 @@ tfoot::before {
   border-bottom: 1px solid black;
   margin-bottom: 5%;
   width: 65%;
+}
+
+#emptyCartMessage {
+  font-size: 30px;
+}
+
+#emptyOrderMessage {
+  text-align: center;
+  padding: 50px;
 }

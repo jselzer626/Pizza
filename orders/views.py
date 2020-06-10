@@ -1,5 +1,5 @@
 from django import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.forms import ModelForm, Textarea
@@ -10,8 +10,6 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import StrictButton
-import stripe
-import json
 
 # Create your views here.
 def index(request):
@@ -27,10 +25,20 @@ def loadMenu(request):
 def manageOrders(request, msg=''):
 
     context = {
-        'orders': Order.objects.all()
+        'orders': Order.objects.all(),
+        'msg': msg,
+        'pending': Order.objects.filter(completed=False).count()
     }
 
     return render(request, "orders/manageOrders.html", context)
+
+def markOrderComplete(request, pk):
+
+    orderToComplete = Order.objects.get(pk=pk)
+    orderToComplete.completed = True
+    orderToComplete.save()
+
+    return HttpResponseRedirect(reverse("manageOrders", kwargs={"msg": "Order Completed!"}))
 
 class addItemForm(forms.ModelForm):
 
@@ -114,9 +122,11 @@ class viewCart(ListView):
     def get_context_data(self, **kwargs):
         origin = self.request.headers['Referer']
         context = super().get_context_data(**kwargs)
-        currentOrder = Order.objects.get(user=self.request.user, completed=False)
+        try:
+            currentOrder = Order.objects.get(user=self.request.user, completed=False)
+        except Order.DoesNotExist:
+            currentOrder = None
         context['message'] = "Item added!" if "add" in origin else ("Item updated!" if "edit" in origin else ("Item deleted!" if 'view' in origin else ''))
-        context["paymentPrice"] = currentOrder.total * 100
         return context
 
 class deleteItem(DeleteView):
@@ -124,7 +134,7 @@ class deleteItem(DeleteView):
     model = OrderDetail
     success_url = reverse_lazy("viewCart")
 
-'''class deleteOrder(DeleteView):
+class deleteOrder(DeleteView):
 
     model = Order
-    success_url'''
+    success_url = reverse_lazy("manageOrders", kwargs={"msg": "Order Deleted!"})

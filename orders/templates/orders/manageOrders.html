@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block staticfile %}
-<script src="{% static 'scripts2.js' %}"></script>
+<script src="{% static 'scripts4.js' %}"></script>
 {% endblock %}
 {% block title %}
 View Cart
 {% endblock %}
 
 {% block body %}
+
+{% if msg %}
+<div class="alert" role="alert">
+  <p class="lead"><b>{{ msg }}</b></p>
+</div>
+{% endif %}
 
 <h1 class="page-header mx-auto" id="orderListHeader"><i class="fas fa-tools"></i>Manage Orders</h1>
 <h2 class="text-left">Pending</h2>
@@ -32,14 +38,19 @@ View Cart
     <td colspan="2">{{ order.lastUpdated }}<div id="itemEditOptions" class="dropdown">
       <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Manage</button>
       <div class="dropdown-menu">
-        <a class="dropdown-item" >Delete</a>
-        <a class="dropdown-item">Mark As Complete</a>
+        <a class="dropdown-item" data-action="delete" data-link="deleteOrder/{{order.id}}/" >Delete</a>
+        <a class="dropdown-item" href="markOrderComplete/{{order.id}}" >Mark As Complete</a>
         </div>
       </div>
     </td>
   </tr>
   {% endif %}
   {% endfor %}
+  {% if pending == 0 %}
+  <tr>
+    <td colspan="6" class="lead" id="emptyOrderMessage">No Pending Orders!</td>
+  </tr>
+  {% endif %}
   </tbody>
 </table>
 <button class="btn btn-primary" data-toggle="collapse" data-target="#completedOrders">Show Completed Orders</button>
@@ -63,19 +74,25 @@ View Cart
       {% endfor %}
       </ul></td>
       <td>${{ order.total }}</td>
-      <td colspan="2">{{ order.lastUpdated }}<div id="itemEditOptions" class="dropdown">
-        <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Manage</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item">Delete</a>
-          <a class="dropdown-item">Mark As Complete</a>
-          </div>
-        </div>
+      <td colspan="2">{{ order.lastUpdated }}
       </td>
     </tr>
     {% endif %}
     {% endfor %}
     </tbody>
   </table>
+</div>
+
+<!--Delete form and order complete form-->
+<div hidden>
+  <form id="updateForm" method="POST" action="">
+  {% csrf_token %}
+  <input type="submit" value="DELETE">
+  </form>
+  <form id="deleteForm" method="POST" action="">
+  {% csrf_token %}
+  <input type="submit" value="DELETE">
+  </form>
 </div>
 
 {% endblock %}

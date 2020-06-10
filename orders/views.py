@@ -24,6 +24,13 @@ def loadMenu(request):
     }
     return render(request, "orders/create.html", context)
 
+def manageOrders(request, msg=''):
+
+    context = {
+        'orders': Order.objects.all()
+    }
+
+    return render(request, "orders/manageOrders.html", context)
 
 class addItemForm(forms.ModelForm):
 
@@ -112,12 +119,12 @@ class viewCart(ListView):
         context["paymentPrice"] = currentOrder.total * 100
         return context
 
-class orderList(ListView):
-
-    model = Order
-    template_name = "orders/viewOrders.html"
-
 class deleteItem(DeleteView):
 
     model = OrderDetail
     success_url = reverse_lazy("viewCart")
+
+'''class deleteOrder(DeleteView):
+
+    model = Order
+    success_url'''

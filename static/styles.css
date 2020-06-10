@@ -364,3 +364,15 @@ tfoot::before {
 #main-header {
   font: 400 100px/1.5 'Pacifico', Helvetica, sans-serif;
 }
+
+#orderList {
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+#orderListHeader {
+  padding-bottom: 15;
+  border-bottom: 1px solid black;
+  margin-bottom: 5%;
+  width: 65%;
+}

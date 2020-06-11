@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   //editing display of total
-  let total = document.querySelector("#orderTotalRaw") ? parseFloat(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
+  let total = document.querySelector("#orderTotalRaw") ? parseInt(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
   let headerSpace = document.querySelector(".specialHeader")
 
   //configure delete buttons
@@ -17,13 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let menuRedirect = document.querySelector('#emptyMessage') ? document.querySelector('#emptyMessage') : ''
   menuRedirect ? menuRedirect.querySelector('button').onclick = () => window.location.href = "loadMenu" : ''
 
-  let footer = document.querySelector('tfoot') ? document.querySelector('tfoot') : ''
-  if (footer) {
-      let paymentDetails = document.querySelector(".stripe-button")
-      footer.querySelector('button').onclick = () => {
-      document.querySelector('#paymentConfirm').style.display="block"
-      }
-  }
+  //properly display order total - the value returned from the db sometimes trails
+  total ? document.querySelector("#orderTotalDisplay").innerHTML = total : ''
+
 
   headerSpace.querySelector('button').addEventListener('click', () => {
     headerSpace.querySelector('a').click()

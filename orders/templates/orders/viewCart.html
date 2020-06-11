@@ -27,7 +27,6 @@ View Cart
         </tr>
     </thead>
     {% if object_list %}
-    <p hidden id="orderTotalRaw">{{ object_list.0.order.updateTotal }}</p>
     <tbody>
       {% for detail in object_list %}
       <tr>
@@ -52,10 +51,11 @@ View Cart
       {% endfor %}
       </tbody>
       <tfoot>
+        <p hidden id="orderTotalRaw">{{ object_list.0.order.updateTotal }}</p>
         <tr>
         <td id="orderNumber" data-order="{{ object_list.0.order.id }}"><b>Order #: </b>{{ object_list.0.order.id }}</td>
         <td colspan="2"><b>Last Updated: </b>{{ object_list.0.order.lastUpdated }}</td>
-        <td><b>Total: </b>${{ object_list.0.order.total }}</td>
+        <td><b>Total: </b>$<span id="orderTotalDisplay"></span</td>
         <td><button class="btn btn-primary">Checkout</button></td>
         </tr>
       </tfoot>

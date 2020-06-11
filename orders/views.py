@@ -1,6 +1,7 @@
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import StrictButton
+from django.core.mail import send_mail
 
 # Create your views here.
 def index(request):
@@ -37,6 +39,8 @@ def markOrderComplete(request, pk):
     orderToComplete = Order.objects.get(pk=pk)
     orderToComplete.completed = True
     orderToComplete.save()
+    confirm_address = orderToComplete.user.email
+    send_mail("Foo", "Bar", "from@example.com", [confirm_address], fail_silently=False)
 
     return HttpResponseRedirect(reverse("manageOrders", kwargs={"msg": "Order Completed!"}))
 
@@ -81,7 +85,8 @@ class editItem(UpdateView):
         form.instance.updateTotal()
         return super().form_valid(form)
 
-class addGeneralItem(CreateView):
+class addGeneralItem(LoginRequiredMixin, CreateView):
+    login_url = "/users/"
     model = OrderDetail
     form_class = addItemForm
     success_url = reverse_lazy("viewCart")

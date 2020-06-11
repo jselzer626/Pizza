@@ -32,10 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     menu.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', e => {
-        itemId = e.target.dataset.itemid
-        window.location.href = `addGeneralItem/${itemId}/`
-      })
+      button.onclick = e => {
+        console.log(e.target.parentElement)
+        e.target.parentElement.querySelector('a').click()
+      }
     })
 
     //configure alert button if there

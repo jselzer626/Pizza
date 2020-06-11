@@ -37,12 +37,12 @@ Create Order
     <tr>
       <td colspan="4">{{ menuItem }}</td>
       {% if category.name == 'PST' %}
-      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" >Add</button></td>
+      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
       {% elif category.name == 'SLD' %}
-      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}" >Add</button></td>
+      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
       {% else %}
       <td>{{ menuItem.priceSmall }}</td>
-      <td>{{ menuItem.priceLarge }}<button class="btn btn-primary btn-sm" data-itemId = "{{ menuItem.id }}">Add</button></td>
+      <td>{{ menuItem.priceLarge }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
     {% endif %}
     </tr>
   {% endfor %}

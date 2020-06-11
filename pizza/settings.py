@@ -126,6 +126,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
 
+# email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 8000
+EMAIL_HOST_USER = 'jselzer626'
+EMAIL_HOST_PASSWORD = 'SandyHill20010'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # payment processing keys
 STRIPE_SECRET_KEY = 'sk_test_9Sz0T0LTU3HPiQRjl8tPhlkq00jcfs5qAs'

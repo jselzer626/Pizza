@@ -1,0 +1,377 @@
+body, html {
+  text-align: center;
+  min-height: 100%;
+  position: relative;
+}
+
+.navbar {
+  background-image: linear-gradient(to right, #bf0000, red);
+}
+
+i {
+  margin-right: 10px;
+}
+
+.footer-details {
+  height: 50%;
+}
+
+.page-header {
+  margin-top: 50px;
+}
+
+.specialHeader button {
+  margin-left: 25px;
+}
+
+.container {
+  min-height: 75vh;
+  display: block;
+  z-index: -1;
+}
+
+footer div {
+  height: 75%;
+  border-top: 1px solid white;
+  margin-top: 35px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.userMenu {
+  font-size: 125px;
+  margin-top: 125px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.menuHeader {
+  padding: 10px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 2%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+#startMenu {
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+  color: white;
+  border: None;
+}
+
+.menuHeader p {
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.menuHeader p:hover {
+  font-weight: bold;
+}
+
+.menuHeader a {
+  color: white;
+  font: 35px 'Pacifico', Helvetica, sans-serif;
+}
+
+.userMenu p {
+  margin-top: 25px;
+  font-size: 20px;
+}
+
+.userMenu a {
+  color: black;
+}
+
+.footer-details > p {
+  margin-top: 15px;
+}
+
+.signUpForm {
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+
+.signUpForm form {
+  width: 55%;
+  padding-bottom: 2%;
+  border-bottom: 1px solid black;
+}
+
+.signUpForm h1 {
+  width: 55%;
+  margin-bottom: 4%;
+  padding-bottom: 2%;
+  border-bottom: 1px solid black;
+}
+
+.signUpForm a {
+  color: black;
+}
+
+.signUpForm div.form-group {
+  text-align: left;
+}
+
+.signUpForm div {
+  text-align: right;
+}
+
+#belowSignUpForm {
+  padding-top: 30px;
+  border-top: 1px solid black;
+}
+
+.btn-primary {
+  background-color: #bf0000;
+  border: black;
+}
+
+#restaurant-pic {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .2;
+  background-image: url("images/pizza_restaurant_photo.jpg");
+  background-size: cover;
+  z-index: -1;
+}
+
+footer {
+  color: white;
+  height: 175px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-image: linear-gradient(to right, #bf0000, red);
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.navbar a {
+  color: white;
+}
+
+.dropdown a {
+  color: black;
+}
+
+#userDetails {
+  color: white;
+  margin-right: 50px;
+}
+
+table {
+  columns: 6;
+  table-layout: fixed;
+}
+
+tbody {
+  display: none;
+}
+
+tbody button {
+  margin-left: 30px;
+}
+
+.selected {
+  display: table-row-group;
+}
+
+.specialHeader {
+  width: 65%;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 3%;
+  border-bottom: 1px solid black;
+  padding-bottom: 2%;
+}
+
+#orderForm label {
+  font-size: 18px;
+  padding: 10px;
+}
+
+#orderForm {
+  width: 65%;
+}
+
+#orderForm button {
+  margin-top: 20px;
+}
+
+
+tfoot > tr {
+  background-color: rgba(0,0,0,.10);
+}
+
+#cartDisplay tbody {
+  display: table-row-group;
+}
+
+.alert {
+  height: 7%;
+  margin-top: 10px;
+  background-color: rgba(0,0,0,.15);
+}
+
+.alert button {
+  margin-left: 15px;
+}
+
+
+.alert p {
+  margin-top: .75%;
+  font-weight: 400;
+}
+
+
+td .fa-trash {
+  margin-left: 15%;
+}
+
+#emptyMessage::before {
+  content: '';
+  display: block;
+  height: 75px;
+}
+
+#emptyMessage {
+  text-align: center;
+}
+
+tfoot::before {
+  content: '';
+  display: block;
+  height: 100px;
+}
+
+#paymentConfirm {
+  display: none;
+}
+
+#paymentConfirm p {
+  margin: 0 auto;
+  width: 60%;
+  padding-bottom: 10px;
+  border-bottom: solid 1px black;
+}
+
+.buttonHolder {
+  border-top: 1px solid black;
+}
+
+.buttonHolder input {
+  margin-top: 3%;
+}
+
+#itemEditOptions {
+  display: inline;
+  float: right;
+}
+
+
+#div_id_item select {
+  font-weight: bold;
+}
+
+#div_id_toppings ul {
+  width: 40%;
+  text-align: left;
+  margin-top: 2%;
+  margin-left: 40%;
+  margin-bottom: 0px;
+}
+
+#div_id_toppings option {
+  cursor: pointer;
+}
+
+#div_id_toppings option:hover {
+  background-color: silver;
+}
+
+#div_id_toppings p {
+  font-weight: bold;
+  margin-bottom: 1%;
+}
+
+#div_id_toppings i {
+  margin-left: 20%;
+  cursor: pointer;
+  float: right;
+  margin-top: 3%;
+}
+
+.text-danger {
+  margin-top: 1%;
+  margin-bottom: none;
+  margin-left: 20%;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/Pasta_banner.jpg");
+
+  /* Set a specific height */
+  height: 25%;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#main-hero-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/Sicilian_Pizza.jpg");
+  height: 75%;
+  margin-top: 3%;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+#main-header {
+  font: 400 100px/1.5 'Pacifico', Helvetica, sans-serif;
+}
+
+#orderList {
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+#orderListHeader {
+  padding-bottom: 15;
+  border-bottom: 1px solid black;
+  margin-bottom: 5%;
+  width: 65%;
+}
+
+#emptyCartMessage {
+  font-size: 30px;
+}
+
+#emptyOrderMessage {
+  text-align: center;
+  padding: 50px;
+}

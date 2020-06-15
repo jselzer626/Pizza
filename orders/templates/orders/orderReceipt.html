@@ -1,0 +1,83 @@
+{% load inlinecss %}
+{% load static %}
+{% inlinecss "emailstyles.css" %}
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Order Receipt</title>
+</head>
+
+<body>
+  <table class="body">
+    <tr>
+      <td class="center" align="center" valign="top">
+        <center>
+
+          <table class="row header">
+            <tr>
+              <td class="center" align="center">
+                <center>
+
+                  <table class="container">
+                    <tr>
+                      <td class="wrapper last">
+
+                        <table class="twelve columns">
+                          <tr>
+                            <td>
+                              <img src="{% static 'images/Sicilian_Pizza.jpg' %}">
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+
+                      </td>
+                    </tr>
+                  </table>
+
+                </center>
+              </td>
+            </tr>
+          </table>
+
+          <table class="container">
+            <tr>
+              <td>
+                <table class="row">
+                  <tr>
+                    <td class="wrapper last">
+
+                      <table class="twelve columns">
+                        <tr>
+                          <td>
+
+                            {% for item in order.orderdetail_set.all %}
+
+                            {{ item }}
+
+                            {% endfor %}
+
+                            Total: {{order.total}}
+
+                            <td class="expander"></td>
+                        </tr>
+                      </table>
+
+                      </td>
+                  </tr>
+                </table>
+                </td>
+            </tr>
+          </table>
+
+        </center>
+        </td>
+    </tr>
+  </table>
+</body>
+
+</html>
+{% endinlinecss %}

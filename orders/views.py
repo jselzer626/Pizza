@@ -12,6 +12,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import StrictButton
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your views here.
 def index(request):
@@ -40,7 +42,10 @@ def markOrderComplete(request, pk):
     orderToComplete.completed = True
     orderToComplete.save()
     confirm_address = orderToComplete.user.email
-    send_mail("Foo", "Bar", "from@example.com", [confirm_address], fail_silently=False)
+    site = 'http://localhost:8000'
+    html_message = render_to_string('orders/orderReceipt.html', {'order': orderToComplete, 'site': site})
+    plain_message = strip_tags(html_message)
+    send_mail("Thanks!", plain_message, "jselzer1@montgomerycollege.edu", [confirm_address], fail_silently=False, html_message=html_message)
 
     return HttpResponseRedirect(reverse("manageOrders", kwargs={"msg": "Order Completed!"}))
 

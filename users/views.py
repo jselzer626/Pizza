@@ -32,8 +32,9 @@ def login_view(request):
 def register_confirm(request):
     username = request.POST["new_username"]
     password = request.POST["new_password"]
+    email = request.POST["email"]
     next = request.POST.get('next') if request.POST.get('next') != '' else "/"
-    user = User.objects.create_user(username=username, password=password)
+    user = User.objects.create_user(username=username, password=password, email=email)
     user.save()
     login(request, user)
     return HttpResponseRedirect(next)

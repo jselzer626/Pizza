@@ -15,6 +15,10 @@ Register
       <input type="text" class="form-control" name="new_username">
     </div>
     <div class="form-group">
+    <label class="lead" for="password">Email</label>
+    <input type="email" class="form-control" name="email">
+    </div>
+    <div class="form-group">
     <label class="lead" for="password">Password</label>
     <input type="password" class="form-control" name="new_password">
     </div>
@@ -22,13 +26,9 @@ Register
     <label class="lead" for="password">Confirm Password</label>
     <input type="password" class="form-control" name="confirm_password">
     </div>
-    <div class="form-group">
-    <label class="lead" for="password">Email</label>
-    <input type="email" class="form-control" name="password">
-    </div>
     <div>
     <input type="hidden" name="next" value="{{ request.GET.next }}">
-    <button class='btn btn-primary' type="submit">Login</button>
+    <button class='btn btn-primary' type="submit">Create Account</button>
     </div>
   </form>
   <a class="lead" href="/users/?next={{ request.GET.next }}">Already have an account?</a>

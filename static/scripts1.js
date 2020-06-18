@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //add bolding and visibility to current section
         var targetCategory = e.target.dataset.section
+        targetCategory == "Pizza" ? document.querySelector(".notice").style.display = "block" : document.querySelector(".notice").style.display = "none"
         bannerImage.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/static/images/${targetCategory}_banner.jpg)`
-        console.log(bannerImage.style.backgroundImage)
         bannerImage.querySelector('h1').innerHTML = targetCategory
         var sectionToDisplay = document.getElementById(`${targetCategory}`)
         e.target.style.fontWeight = 'bold'

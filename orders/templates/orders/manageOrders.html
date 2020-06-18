@@ -45,6 +45,7 @@ View Cart
   </thead>
   <tbody class="selected">
   {% for order in orders %}
+  {% if order.checkedOut %}
   {% if not order.completed %}
   <tr>
     <td>{{ order.id }}</td>
@@ -63,6 +64,7 @@ View Cart
       </div>
     </td>
   </tr>
+  {% endif %}
   {% endif %}
   {% endfor %}
   {% if pending == 0 %}

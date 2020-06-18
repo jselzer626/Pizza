@@ -1,7 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block staticfile %}
-<script src="{% static 'scripts2.js' %}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    //editing display of total
+    let total = document.querySelector("#orderTotalRaw") ? parseInt(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
+    let headerSpace = document.querySelector(".specialHeader")
+
+    //configure delete buttons
+    document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {
+      link.addEventListener('click', e => {
+        var deleteForm = document.querySelector("#deleteForm")
+        deleteForm.action = e.target.dataset.link
+        deleteForm.submit()
+      })
+    })
+
+    //properly display order total - the value returned from the db sometimes trails
+    total ? document.querySelector("#orderTotalDisplay").innerHTML = total : ''
+
+
+    headerSpace.querySelector('button').addEventListener('click', () => {
+      console.log("here")
+      headerSpace.querySelector('a').click()
+    })
+
+  })
+</script>
 {% endblock %}
 {% block title %}
 View Cart

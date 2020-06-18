@@ -85,6 +85,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     lastUpdated = models.DateTimeField(auto_now=True)
     items = models.ManyToManyField(MenuItem, blank=True, through='OrderDetail')
+    checkedOut = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
     total = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
 

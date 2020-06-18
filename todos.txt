@@ -1,6 +1,8 @@
 TODO:
 
-order edit page for system admins (mark order as complete)
+complete confirmation page
+
+
 
 send email to user once order is completed
 
@@ -8,6 +10,8 @@ send email to user once order is completed
 
 
 DONE:
+
+order edit page for system admins (mark order as complete)
 
 banner for detailing that item was added / deleted (kwargs?)
 

@@ -375,3 +375,9 @@ tfoot::before {
   text-align: center;
   padding: 50px;
 }
+
+.notice {
+  margin-top: 1%;
+  text-align: center;
+  display: none;
+}

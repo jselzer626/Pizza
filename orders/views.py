@@ -31,7 +31,7 @@ def manageOrders(request, msg=''):
     context = {
         'orders': Order.objects.all(),
         'msg': msg,
-        'pending': Order.objects.filter(completed=False).count()
+        'pending': Order.objects.filter(checkedOut=True, completed=False).count()
     }
 
     return render(request, "orders/manageOrders.html", context)
@@ -48,6 +48,19 @@ def markOrderComplete(request, pk):
     send_mail("Thanks!", plain_message, "jselzer1@montgomerycollege.edu", [confirm_address], fail_silently=False, html_message=html_message)
 
     return HttpResponseRedirect(reverse("manageOrders", kwargs={"msg": "Order Completed!"}))
+
+def showAboutPage(request):
+
+    return render(request, "orders/about.html")
+
+def checkOut(request, pk):
+
+    currentOrder = Order.objects.get(pk=pk)
+    currentOrder.checkedOut = True
+    context = {
+        items: OrderDetail.objects.filter(pk=pk)
+    }
+    return reverse("orderConfirmation", context)
 
 class addItemForm(forms.ModelForm):
 

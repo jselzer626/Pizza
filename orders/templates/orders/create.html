@@ -23,6 +23,7 @@ Create Order
     <h1 class="display-4">Pasta</h1>
   </div>
 </div>
+<p class="lead notice"><i>***Sicilian style pizza is similar to deep dish. Normal style has thin crust.***</i></p>
 <table class="table">
   <thead>
     <tr>
@@ -33,7 +34,7 @@ Create Order
   </thead>
   {% for category in categories %}
   <tbody id="{{ category }}">
-  {% for menuItem in category.menuitem_set.all %}
+    {% for menuItem in category.menuitem_set.all %}
     <tr>
       <td colspan="4">{{ menuItem }}</td>
       {% if category.name == 'PST' %}

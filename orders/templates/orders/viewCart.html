@@ -7,7 +7,7 @@
     //editing display of total
     let total = document.querySelector("#orderTotalRaw") ? parseInt(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
     let headerSpace = document.querySelector(".specialHeader")
-
+    let checkOut = document.querySelector("#checkOut") ? document.querySelector("#checkOut") : ''
     //configure delete buttons
     document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {
       link.addEventListener('click', e => {
@@ -17,12 +17,14 @@
       })
     })
 
+    //configure checkout button
+    checkOut ? checkOut.querySelector("button").onclick = () => checkOut.querySelector("a").click() : ''
+
     //properly display order total - the value returned from the db sometimes trails
     total ? document.querySelector("#orderTotalDisplay").innerHTML = total : ''
 
 
     headerSpace.querySelector('button').addEventListener('click', () => {
-      console.log("here")
       headerSpace.querySelector('a').click()
     })
 
@@ -40,6 +42,23 @@ View Cart
   <p class="lead"><b>{{ message }}</b></p>
 </div>
 {% endif %}
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">You're almost there!</h5>
+      </div>
+      <div class="modal-body">
+        <p class="lead">Please choose one of the following</p>
+        <div class="methodButtons"><button data-order-method="pickup" class="btn btn-primary">Pick Up</button><button data-order-method="delivery" class="btn btn-primary">Delivery</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+  </div>
+</div>
+</div>
 <h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart<button class="btn btn-primary">Back</button><a hidden href = "{% url 'loadMenu' %}"></a></h1>
 
   <table class="table" id="cartDisplay">
@@ -82,7 +101,8 @@ View Cart
         <td id="orderNumber" data-order="{{ object_list.0.order.id }}"><b>Order #: </b>{{ object_list.0.order.id }}</td>
         <td colspan="2"><b>Last Updated: </b>{{ object_list.0.order.lastUpdated }}</td>
         <td><b>Total: </b>$<span id="orderTotalDisplay"></span</td>
-        <td><button class="btn btn-primary">Checkout</button></td>
+        <td id="checkOut"><button class="btn btn-primary" data-toggle="modal" data-target="#checkoutModal">Checkout</button></td>
+          <!--<a hidden href="{% url 'checkOut' object_list.0.order.id %}"-->
         </tr>
       </tfoot>
   {% else %}

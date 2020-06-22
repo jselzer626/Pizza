@@ -57,10 +57,11 @@ def checkOut(request, pk):
 
     currentOrder = Order.objects.get(pk=pk)
     currentOrder.checkedOut = True
+    currentOrder.save()
     context = {
-        items: OrderDetail.objects.filter(pk=pk)
+        'order': currentOrder
     }
-    return reverse("orderConfirmation", context)
+    return render(request, "orders/orderConfirmation.html", context)
 
 class addItemForm(forms.ModelForm):
 

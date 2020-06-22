@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Order Confirmation
+{% endblock %}
+
+{% block body %}
+<h1 class="specialHeader"><i class="fas fa-check"></i>Success - Order Confirmed!</h1>
+<p class="lead mb-5">Thanks for your order. Please see details below.</p>
+<table class="table" id="cartDisplay">
+  <thead>
+      <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th>Quantity</th>
+      <th>Special Notes</th>
+      <th>Item Total</th>
+      </tr>
+  </thead>
+  <tbody>
+    {% for detail in order.orderdetail_set.all %}
+    <tr>
+      <td>{{ detail.item }}</td>
+      <td>{{ detail.size }}</td>
+      <td>{{ detail.quantity }}</td>
+      <td>{{ detail.notes }}</td>
+      <td>{{ detail.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><b>Order #: </b>{{ order.id }}</td>
+      <td colspan="2"><b>Completed: </b>{{ order.lastUpdated }}</td>
+      <td><b>User: </b>{{ order.user }}</td>
+      <td><b>Total: </b>${{ order.total }}</td>
+    </tr>
+  </tfoot>
+</table>
+
+
+
+
+
+
+
+{% endblock %}

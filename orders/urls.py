@@ -19,5 +19,6 @@ urlpatterns = [
     path("manageOrders/<str:msg>/", views.manageOrders, name="manageOrders"),
     path("deleteOrder/<int:pk>/", deleteOrder.as_view(), name="deleteOrder"),
     path("markOrderComplete/<int:pk>/", views.markOrderComplete, name="markOrderComplete"),
-    path("showAboutPage", views.showAboutPage, name="showAboutPage")
+    path("showAboutPage", views.showAboutPage, name="showAboutPage"),
+    path("checkOut/<int:pk>/", views.checkOut, name="checkOut")
 ]

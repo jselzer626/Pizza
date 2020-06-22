@@ -30,6 +30,10 @@ i {
   z-index: -1;
 }
 
+.itemRegularListing {
+  padding-left: 75px !important;
+}
+
 footer div {
   height: 75%;
   border-top: 1px solid white;
@@ -380,4 +384,8 @@ tfoot::before {
   margin-top: 1%;
   text-align: center;
   display: none;
+}
+
+.methodButtons {
+  display: inline-block;
 }

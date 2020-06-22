@@ -10,7 +10,7 @@ Create Order
 {% block body %}
 <div class="page-header">
   <h1>Menu</h1>
-  <!--<br>
+  <br>
   <p class="lead"><em>Please choose a category to view related menu items</em></p>-->
 </div>
 <div class='menuHeader'>
@@ -23,7 +23,7 @@ Create Order
     <h1 class="display-4">Pasta</h1>
   </div>
 </div>
-<p class="lead notice"><i>***Sicilian style pizza is similar to deep dish. Normal style has thin crust.***</i></p>
+<p class="lead notice"><i><a href="https://en.wikipedia.org/wiki/Sicilian_pizza">Sicilian style</a> pizza is similar to deep dish, but square. Normal style has thin crust.</i></p>
 <table class="table">
   <thead>
     <tr>
@@ -38,9 +38,9 @@ Create Order
     <tr>
       <td colspan="4">{{ menuItem }}</td>
       {% if category.name == 'PST' %}
-      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
+      <td colspan="2" class="itemRegularListing">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
       {% elif category.name == 'SLD' %}
-      <td colspan="2">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
+      <td colspan="2" class="itemRegularListing">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
       {% else %}
       <td>{{ menuItem.priceSmall }}</td>
       <td>{{ menuItem.priceLarge }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>

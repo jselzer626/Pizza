@@ -11,6 +11,7 @@
       e.target.ariaExpanded == 'true' ? e.target.innerHTML = "Show Completed Orders" : e.target.innerHTML = "Hide Completed Orders"
     }
 
+    // configuring delete button to submit the delete item form so we can bypass confirmation on a separate page
     if (orderList) {
       orderList.querySelectorAll("a[data-action='delete']").forEach(link => {
         link.addEventListener('click', e => {
@@ -58,8 +59,8 @@ View Cart
     <td colspan="2">{{ order.lastUpdated }}<div id="itemEditOptions" class="dropdown">
       <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Manage</button>
       <div class="dropdown-menu">
-        <a class="dropdown-item" data-action="delete" data-link="deleteOrder/{{order.id}}/" >Delete</a>
-        <a class="dropdown-item" href="markOrderComplete/{{order.id}}" >Mark As Complete</a>
+        <a class="dropdown-item" data-action="delete" data-link="{% url 'deleteOrder' order.id %}">Delete</a>
+        <a class="dropdown-item" href="{% url 'markOrderComplete' order.id %}" >Mark As Complete</a>
         </div>
       </div>
     </td>

@@ -18,6 +18,9 @@ class Category(models.Model):
     def __str__(self):
         return self.get_name_display()
 
+    '''def isPizza(self):
+        return True if self == 'PZA' else False'''
+
 class PizzaTopping(models.Model):
 
     PIZZA_TOPPINGS = [
@@ -130,13 +133,13 @@ class OrderDetail(models.Model):
 
     def __str__(self):
         self.updateTotal()
-        showToppings = True if self.toppings.all().count() > 0 or self.sandwichToppings.all().count() > 0 else False
-        if self.item.category == 'PZA':
+        '''showToppings = True if self.toppings.all().count() > 0 or self.sandwichToppings.all().count() > 0 else False
+        if self.item.category.name == 'PZA':
             item_pizza_toppings = [str(elem) for elem in self.toppings.all()]
             return f"{self.item} {item_pizza_toppings} X {self.quantity} - {self.total}" if showToppings else f"{self.item} No toppings X {self.quantity} - {self.total}"
-        elif self.item.category == 'SUB':
+        elif self.item.category.name == 'SUB':
             extraCheese = 'XTRA Cheese' if {self.extraCheese} else ''
             item_sandwich_toppings = [str(elem) for elem in self.sandwichToppings.all()]
             return f"{self.item} {item_sandwich_toppings} X {self.quantity} - {self.total}" if showToppings else f"{self.item} No toppings X {self.quantity} - {self.total}"
-        else:
-            return f"{self.item} {self.size} X {self.quantity} - {self.total}"
+        else:'''
+        return f"{self.item} {self.size} X {self.quantity} - ${self.total}"

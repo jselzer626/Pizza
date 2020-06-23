@@ -114,7 +114,7 @@ class addGeneralItem(LoginRequiredMixin, CreateView):
     def get_initial(self):
 
         try:
-            currentOrder = Order.objects.get(user=self.request.user, completed=False)
+            currentOrder = Order.objects.get(user=self.request.user, checkedOut=False)
         except Order.DoesNotExist:
             currentOrder = Order(user=self.request.user)
             currentOrder.save()
@@ -139,7 +139,7 @@ class viewCart(ListView):
 
     def get_queryset(self):
         try:
-            currentOrder = Order.objects.get(user=self.request.user, completed=False)
+            currentOrder = Order.objects.get(user=self.request.user, checkedOut=False)
         except Order.DoesNotExist:
             currentOrder = None
         return OrderDetail.objects.filter(order = currentOrder)
@@ -148,7 +148,7 @@ class viewCart(ListView):
         origin = self.request.headers['Referer']
         context = super().get_context_data(**kwargs)
         try:
-            currentOrder = Order.objects.get(user=self.request.user, completed=False)
+            currentOrder = Order.objects.get(user=self.request.user, checkedOut=False)
         except Order.DoesNotExist:
             currentOrder = None
         context['message'] = "Item added!" if "add" in origin else ("Item updated!" if "edit" in origin else ("Item deleted!" if 'view' in origin else ''))

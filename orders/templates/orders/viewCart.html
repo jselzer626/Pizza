@@ -5,12 +5,12 @@
   document.addEventListener("DOMContentLoaded", () => {
 
     //editing display of total
-    let total = document.querySelector("#orderTotalRaw") ? parseInt(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
+    let total = document.querySelector("#orderTotalRaw") ? parseFloat(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
     let headerSpace = document.querySelector(".specialHeader")
     let deliveryMethodOptions = document.querySelector(".methodButtons")
-    let orderNumber = document.querySelector("orderNumber") ? document.querySelector("orderNumber").dataset.orderNumber : ''
+    let orderNumber = document.querySelector("#orderNumber") ? document.querySelector("#orderNumber").dataset.order : ''
     let checkOutButtonContainer = document.querySelector(".modal-footer")
-    let methodChoice = "undecided"
+    let methodChoice = "not chosen"
 
     //configure delete buttons
     document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {
@@ -25,16 +25,16 @@
     deliveryMethodOptions.querySelectorAll("button").forEach(button => button.addEventListener('click', e => {
       var deliveryMethod = e.target.dataset.orderMethod
       methodChoice = deliveryMethod
-      document.querySelector("#methodChoice").innerHTML = deliveryMethod
+      document.querySelectorAll("#methodChoice").forEach(span => span.innerHTML = deliveryMethod)
       deliveryMethodOptions.querySelector('p').style.display = "block"
     }))
     //configure checkout button
     checkOutButtonContainer.querySelector("button").addEventListener("click", e => {
-        methodChoice != "undecided" ? deliveryMethodOptions.querySelector(".text-danger").style.display = "block" : window.location.href = `checkout/${orderNumber}/${methodChoice}/`
+        methodChoice == "not chosen" ? deliveryMethodOptions.querySelector(".text-danger").style.display = "block" : window.location.href = `checkOut/${orderNumber}/${methodChoice}/`
     })
 
     //properly display order total - the value returned from the db sometimes trails
-    total ? document.querySelector("#orderTotalDisplay").innerHTML = total : ''
+    total ? document.querySelectorAll("#orderTotalDisplay").forEach(span => span.innerHTML = total) : ''
 
 
     headerSpace.querySelector('button').addEventListener('click', () => {
@@ -62,11 +62,34 @@ View Cart
         <h5 class="modal-title">You're almost there!</h5><button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
       </div>
       <div class="modal-body">
-        <p class="lead">Please choose one of the following</p>
-        <div class="methodButtons"><button data-order-method="pickup" class="mr-5 btn btn-primary">Pick Up</button><button data-order-method="delivery" class="btn btn-primary">Delivery</button>
-          <p class="lead mt-3"><b>Selected: </b><span id="methodChoice"></span></p>
-          <p id="errorMessage" class="lead text-danger">Please select a delivery type</p>
+        <p>Please choose one of the following</p>
+        <div class="methodButtons"><button data-order-method="Pickup" class="mr-5 btn btn-primary">Pick Up</button><button data-order-method="Delivery" class="btn btn-primary">Delivery</button>
+          <p class="mt-3"><b>Selected: </b><span id="methodChoice"></span></p>
+          <p id="errorMessage" class="mr-0 mt-2 text-danger"><b>Please select pickup or delivery</b></p>
+        <div>
+          <h5 class="mt-3 pt-3 border-top"><b>Order Summary</b></h5>
+          <ul class="mt-3 pb-3 border-bottom">
+            {% for detail in object_list %}
+            {% if detail.item.category.name == "PZA" %}
+            <li class="mt-2">{{ detail }}
+              <ul>
+                {% for topping in detail.toppings.all %}
+                <li>{{topping}}</li>
+                {% endfor %}
+              </ul>
+            </li>
+            {% else %}
+            <li class="mt-2">{{ detail }}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
         </div>
+        </div>
+      </div>
+      <div id="orderSummary">
+        <p><b>Order #: </b>{{ object_list.0.order.id }}</p>
+        <p><b>Method: </b><span id="methodChoice">Not Chosen</span></p>
+        <p><b>Total: </b>$<span id="orderTotalDisplay"></span></p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary">Place Order</button>
@@ -101,8 +124,8 @@ View Cart
         <td>${{ detail.updateTotal }}<div id="itemEditOptions" class="dropdown">
           <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Edit</button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" data-action="delete" data-link="deleteItem/{{ detail.id }}/" >Delete</a>
-            <a class="dropdown-item" data-action="edit" href="editItem/{{ detail.id }}/">Update</a>
+            <a class="dropdown-item" data-action="delete" data-link="{% url 'deleteOrderItem' detail.id %}" >Delete</a>
+            <a class="dropdown-item" data-action="edit" href="{% url 'editItem' detail.id %}">Update</a>
             </div>
   <!--<button id="{{ detail.id }}" class="btn btn-primary btn-sm">Update</button>-->
           </div>
@@ -115,9 +138,8 @@ View Cart
         <tr>
         <td id="orderNumber" data-order="{{ object_list.0.order.id }}"><b>Order #: </b>{{ object_list.0.order.id }}</td>
         <td colspan="2"><b>Last Updated: </b>{{ object_list.0.order.lastUpdated }}</td>
-        <td><b>Total: </b>$<span id="orderTotalDisplay"></span</td>
+        <td><b>Total: </b>$<span id="orderTotalDisplay"></span></td>
         <td id="checkOut"><button class="btn btn-primary" data-toggle="modal" data-target="#checkoutModal">Checkout</button></td>
-          <!--<a hidden href="{% url 'checkOut' object_list.0.order.id %}"-->
         </tr>
       </tfoot>
   {% else %}

@@ -7,7 +7,11 @@
     //editing display of total
     let total = document.querySelector("#orderTotalRaw") ? parseInt(document.querySelector("#orderTotalRaw").innerHTML).toFixed(2) : ''
     let headerSpace = document.querySelector(".specialHeader")
-    let checkOut = document.querySelector("#checkOut") ? document.querySelector("#checkOut") : ''
+    let deliveryMethodOptions = document.querySelector(".methodButtons")
+    let orderNumber = document.querySelector("orderNumber") ? document.querySelector("orderNumber").dataset.orderNumber : ''
+    let checkOutButtonContainer = document.querySelector(".modal-footer")
+    let methodChoice = "undecided"
+
     //configure delete buttons
     document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {
       link.addEventListener('click', e => {
@@ -17,8 +21,17 @@
       })
     })
 
+    // configure delivery choice buttons in modal header
+    deliveryMethodOptions.querySelectorAll("button").forEach(button => button.addEventListener('click', e => {
+      var deliveryMethod = e.target.dataset.orderMethod
+      methodChoice = deliveryMethod
+      document.querySelector("#methodChoice").innerHTML = deliveryMethod
+      deliveryMethodOptions.querySelector('p').style.display = "block"
+    }))
     //configure checkout button
-    checkOut ? checkOut.querySelector("button").onclick = () => checkOut.querySelector("a").click() : ''
+    checkOutButtonContainer.querySelector("button").addEventListener("click", e => {
+        methodChoice != "undecided" ? deliveryMethodOptions.querySelector(".text-danger").style.display = "block" : window.location.href = `checkout/${orderNumber}/${methodChoice}/`
+    })
 
     //properly display order total - the value returned from the db sometimes trails
     total ? document.querySelector("#orderTotalDisplay").innerHTML = total : ''
@@ -46,15 +59,17 @@ View Cart
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">You're almost there!</h5>
+        <h5 class="modal-title">You're almost there!</h5><button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
       </div>
       <div class="modal-body">
         <p class="lead">Please choose one of the following</p>
-        <div class="methodButtons"><button data-order-method="pickup" class="btn btn-primary">Pick Up</button><button data-order-method="delivery" class="btn btn-primary">Delivery</button>
+        <div class="methodButtons"><button data-order-method="pickup" class="mr-5 btn btn-primary">Pick Up</button><button data-order-method="delivery" class="btn btn-primary">Delivery</button>
+          <p class="lead mt-3"><b>Selected: </b><span id="methodChoice"></span></p>
+          <p id="errorMessage" class="lead text-danger">Please select a delivery type</p>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary">Place Order</button>
       </div>
   </div>
 </div>

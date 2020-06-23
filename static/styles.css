@@ -389,3 +389,7 @@ tfoot::before {
 .methodButtons {
   display: inline-block;
 }
+
+.methodButtons p {
+  display: none;
+}

@@ -53,10 +53,11 @@ def showAboutPage(request):
 
     return render(request, "orders/about.html")
 
-def checkOut(request, pk):
+def checkOut(request, pk, orderMethod):
 
     currentOrder = Order.objects.get(pk=pk)
     currentOrder.checkedOut = True
+    currentOrder.method = orderMethod
     currentOrder.save()
     context = {
         'order': currentOrder

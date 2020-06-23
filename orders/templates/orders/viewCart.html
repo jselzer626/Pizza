@@ -26,6 +26,7 @@
       var deliveryMethod = e.target.dataset.orderMethod
       methodChoice = deliveryMethod
       document.querySelectorAll("#methodChoice").forEach(span => span.innerHTML = deliveryMethod)
+      deliveryMethodOptions.querySelector(".text-danger").style.display = "block" ? deliveryMethodOptions.querySelector(".text-danger").style.display = "none" : ''
       deliveryMethodOptions.querySelector('p').style.display = "block"
     }))
     //configure checkout button

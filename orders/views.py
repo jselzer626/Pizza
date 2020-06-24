@@ -41,11 +41,11 @@ def markOrderComplete(request, pk):
     orderToComplete = Order.objects.get(pk=pk)
     orderToComplete.completed = True
     orderToComplete.save()
-    confirm_address = orderToComplete.user.email
+    '''confirm_address = orderToComplete.user.email
     site = 'http://localhost:8000'
     html_message = render_to_string('orders/orderReceipt.html', {'order': orderToComplete, 'site': site})
     plain_message = strip_tags(html_message)
-    send_mail("Thanks!", plain_message, "jselzer1@montgomerycollege.edu", [confirm_address], fail_silently=False, html_message=html_message)
+    send_mail("Thanks!", plain_message, "jselzer1@montgomerycollege.edu", [confirm_address], fail_silently=False, html_message=html_message)'''
 
     return HttpResponseRedirect(reverse("manageOrders", kwargs={"msg": "Order Completed!"}))
 

@@ -1,7 +1,7 @@
 from django.test import Client, TestCase, RequestFactory
 
 from .models import Order, MenuItem, OrderDetail, Category, PizzaTopping, CheesesteakTopping
-from .views import addItemForm
+from .views import addItemForm, viewCart
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -46,6 +46,9 @@ class OrderTestCases(TestCase):
         testDetail3 = OrderDetail.objects.create(order=testOrder, item=testCheeseSteak, size="LG", quantity=1, extraCheese=True)
         testDetail3.sandwichToppings.add(testSubTopping1, testSubTopping2)
 
+        # for simulating browser requests
+        self.client = Client()
+
 
     # test models
     def testPizzaToppingsAdd(self):
@@ -78,51 +81,70 @@ class OrderTestCases(TestCase):
         self.assertFalse(order.checkedOut, order.completed)
 
     def test_index(self):
-        c = Client()
-        response = c.get("/")
+        response = self.client.get("/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_menu_display(self):
+        response = self.client.get("/loadMenu")
         self.assertEqual(response.status_code, 200)
 
     def test_login_redirect(self):
         # if a user tries to add a menu item to their cart they should be directed to login page
-        c = Client()
-        response = c.get("/addGeneralItem/1/")
+        response = self.client.get("/addGeneralItem/1/")
         self.assertEqual(response.status_code, 302)
 
     def test_user_login(self):
-        c = Client()
-        loginResult = c.login(username="test", password="test")
+        loginResult = self.client.login(username="test", password="test")
         self.assertEqual(loginResult, True)
 
-    def test_item_add(self):
-        c = Client()
+    def test_view_cart(self):
         user = User.objects.get(username="test")
-        c.force_login(user)
+        self.client.force_login(user)
+        response = self.client.get(reverse('viewCart'), HTTP_REFERER='http://foo/bar')
+        print(response.context_data['orderdetail_list'].count())
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_cart_item_count(self):
+        user = User.objects.get(username="test")
+        self.client.force_login(user)
+        response = self.client.get(reverse('viewCart'), HTTP_REFERER='http://foo/bar')
+        self.assertEqual(response.context_data['orderdetail_list'].count(), 3)
+
+    def test_item_add(self):
+        user = User.objects.get(username="test")
+        self.client.force_login(user)
         order = Order.objects.get(user=user)
         burger = MenuItem.objects.get(name="Hamburger")
-        response = c.post(reverse("addGeneralItem", kwargs={'pk': burger.id}), {"order": order.id, "item": burger.id, "quantity": 2, 'size': "LG"})
+        response = self.client.post(reverse("addGeneralItem", kwargs={'pk': burger.id}), {"order": order.id, "item": burger.id, "quantity": 2, 'size': "LG"})
         self.assertEqual(order.items.all().count(), 4)
 
     def test_item_delete(self):
-        c = Client()
         user = User.objects.get(username="test")
-        c.force_login(user)
+        self.client.force_login(user)
         itemToDelete = OrderDetail.objects.first()
-        response = c.post(reverse("deleteOrderItem", kwargs={'pk': itemToDelete.id}))
+        response = self.client.post(reverse("deleteOrderItem", kwargs={'pk': itemToDelete.id}))
         self.assertEqual(Order.objects.first().items.count(), 2)
 
     def test_item_update(self):
-        c = Client()
         user = User.objects.get(username="test")
-        c.force_login(user)
+        self.client.force_login(user)
         itemToUpdate = OrderDetail.objects.first()
-        response = c.post(reverse("editItem", kwargs={'pk': itemToUpdate.id}), {"order": itemToUpdate.order.id, "item": itemToUpdate.item.id, "quantity": 5})
+        response = self.client.post(reverse("editItem", kwargs={'pk': itemToUpdate.id}), {"order": itemToUpdate.order.id, "item": itemToUpdate.item.id, "quantity": 5})
         itemToUpdate.refresh_from_db()
         self.assertEqual(itemToUpdate.quantity, 5)
 
     def test_Order_Delete(self):
-        c = Client()
         user = User.objects.get(username="test")
-        c.force_login(user)
+        self.client.force_login(user)
         orderToDelete = Order.objects.first()
-        response = c.post(reverse("deleteOrder", kwargs={'pk': orderToDelete.id}))
+        response = self.client.post(reverse("deleteOrder", kwargs={'pk': orderToDelete.id}))
         self.assertEqual(Order.objects.all().count(), 0)
+
+    def test_order_completion(self):
+        user = User.objects.get(username="test")
+        self.client.force_login(user)
+        orderToComplete = Order.objects.first()
+        response = self.client.get(reverse("markOrderComplete", kwargs={'pk': orderToComplete.id}))
+        self.assertEqual(response.status_code, 302)
+        orderToComplete.refresh_from_db()
+        self.assertEqual(orderToComplete.completed, True)

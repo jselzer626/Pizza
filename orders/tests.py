@@ -100,14 +100,13 @@ class OrderTestCases(TestCase):
     def test_view_cart(self):
         user = User.objects.get(username="test")
         self.client.force_login(user)
-        response = self.client.get(reverse('viewCart'), HTTP_REFERER='http://foo/bar')
-        print(response.context_data['orderdetail_list'].count())
+        response = self.client.get(reverse('viewCart'), HTTP_REFERER='http://test')
         self.assertEqual(response.status_code, 200)
 
     def test_view_cart_item_count(self):
         user = User.objects.get(username="test")
         self.client.force_login(user)
-        response = self.client.get(reverse('viewCart'), HTTP_REFERER='http://foo/bar')
+        response = self.client.get(reverse('viewCart'), HTTP_REFERER='http://test')
         self.assertEqual(response.context_data['orderdetail_list'].count(), 3)
 
     def test_item_add(self):
@@ -140,11 +139,21 @@ class OrderTestCases(TestCase):
         response = self.client.post(reverse("deleteOrder", kwargs={'pk': orderToDelete.id}))
         self.assertEqual(Order.objects.all().count(), 0)
 
+    def test_checkout(self):
+        user = User.objects.get(username="test")
+        self.client.force_login(user)
+        orderToCheckout = Order.objects.first()
+        self.assertEqual(orderToCheckout.method, '')
+        response = self.client.post(reverse("checkOut"), {'orderToCheckout': orderToCheckout.id, "orderDeliveryMethod": "Delivery"})
+        orderToCheckout.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(orderToCheckout.method, "Delivery")
+
     def test_order_completion(self):
         user = User.objects.get(username="test")
         self.client.force_login(user)
         orderToComplete = Order.objects.first()
-        response = self.client.get(reverse("markOrderComplete", kwargs={'pk': orderToComplete.id}))
-        self.assertEqual(response.status_code, 302)
+        response = self.client.post(reverse("markOrderComplete"), {'orderToComplete': orderToComplete.id})
         orderToComplete.refresh_from_db()
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(orderToComplete.completed, True)

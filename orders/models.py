@@ -90,11 +90,7 @@ class Order(models.Model):
     items = models.ManyToManyField(MenuItem, blank=True, through='OrderDetail')
     checkedOut = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
-    METHODS = [
-        ("DLY", "Delivery"),
-        ("PCK", "Pickup")
-    ]
-    method = models.CharField(max_length=3, choices=METHODS, blank=True)
+    method = models.CharField(max_length=10, blank=True)
     total = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
 
     def updateTotal(self):

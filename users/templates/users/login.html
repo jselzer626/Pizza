@@ -1,5 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block staticfile %}
+<script>
+
+  // function to display error message
+  let displayErrorMessage = (fieldWithError, errorMessage, errorMessageSpace) => {
+
+    fieldWithError.style.border = "2px solid red"
+    errorMessageSpace.innerHTML = errorMessage
+    errorMessageSpace.style.display = "block"
+
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    let
+    let alert = document.querySelector(".alert") ? document.querySelector(".alert") : ''
+
+    alert ? alert.querySelector('button').onclick = () => alert.querySelector('a').click() : ''
+
+  })
+
+</script>
+{% endblock %}
 {% load crispy_forms_tags %}
 {% block title %}
 Login
@@ -7,6 +30,11 @@ Login
 
 {% block body %}
 
+{% if message %}
+<div class="alert" role="alert">
+  <p class="lead"><b>{{ message }}</b><button class="btn btn-primary">New Account</button><a hidden href="{% url 'register'%}"></a></p>
+</div>
+{% endif %}
 <div class="signUpForm">
   <h1 class="mx-auto"><i class="far fa-user"></i>Login</h1>
   <form class="form mx-auto" action="{% url 'login' %}" method="post">
@@ -20,6 +48,7 @@ Login
     <input type="password" class="form-control" name="password">
     </div>
     <div>
+    <p class="lead text-danger"></p>
     <input type="hidden" name="next" value="{{ request.GET.next }}">
     <button class='btn btn-primary' type="submit">Login</button>
     </div>

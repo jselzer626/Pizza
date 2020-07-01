@@ -10,6 +10,7 @@
     showCompletedButton.onclick = e => {
       e.target.ariaExpanded == 'true' ? e.target.innerHTML = "Show Completed Orders" : e.target.innerHTML = "Hide Completed Orders"
     }
+    let completeForm = document.querySelector("#completeForm")
 
     // configuring delete button to submit the delete item form so we can bypass confirmation on a separate page
     if (orderList) {
@@ -18,6 +19,14 @@
           deleteForm.action = e.target.dataset.link
           deleteForm.submit()
         })
+      })
+
+      orderList.querySelectorAll("#completeOrder").forEach(link => {
+        link.onclick = e => {
+          var orderNumber = e.target.dataset.orderNumber
+          completeForm.querySelector('#orderToComplete').value = orderNumber
+          completeForm.submit()
+        }
       })
     }
   })
@@ -60,7 +69,7 @@ View Cart
       <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Manage</button>
       <div class="dropdown-menu">
         <a class="dropdown-item" data-action="delete" data-link="{% url 'deleteOrder' order.id %}">Delete</a>
-        <a class="dropdown-item" href="{% url 'markOrderComplete' order.id %}" >Mark As Complete</a>
+        <a class="dropdown-item" data-order-number="{{ order.id }}" id="completeOrder">Mark As Complete</a>
         </div>
       </div>
     </td>
@@ -114,6 +123,10 @@ View Cart
   <form id="deleteForm" method="POST" action="">
   {% csrf_token %}
   <input type="submit" value="DELETE">
+  </form>
+  <form id="completeForm" method="POST" action="{% url 'markOrderComplete' %}">
+  {% csrf_token %}
+  <input name="orderToComplete" id="orderToComplete">
   </form>
 </div>
 

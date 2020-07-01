@@ -26,7 +26,7 @@ SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
 # SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'pizza.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Pizza',
-        'USER': 'postgres',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PW'],
-        'HOST': 'localhost',
+        'HOST': os.environ['DB_HOST'],
         'PORT': 5432,
     }
 }

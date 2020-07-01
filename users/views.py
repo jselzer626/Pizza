@@ -27,17 +27,20 @@ def login_view(request):
         login(request, user)
         return HttpResponseRedirect(next)
     else:
-        return render(request, "users/login.html", {"message": "Invalid Credentials"})
+        return render(request, "users/login.html", {"message": "Invalid Credentials. Please try again or create a new account!"})
 
 def register_confirm(request):
     username = request.POST["new_username"]
-    password = request.POST["new_password"]
-    email = request.POST["email"]
-    next = request.POST.get('next') if request.POST.get('next') != '' else "/"
-    user = User.objects.create_user(username=username, password=password, email=email)
-    user.save()
-    login(request, user)
-    return HttpResponseRedirect(next)
+    if User.objects.get(username=username):
+        return render(request, "users/register.html", {"message": "Username already taken, please choose something different!"})
+    else:
+        password = request.POST["new_password"]
+        email = request.POST["email"]
+        next = request.POST.get('next') if request.POST.get('next') != '' else "/"
+        user = User.objects.create_user(username=username, password=password, email=email)
+        user.save()
+        login(request, user)
+        return HttpResponseRedirect(next)
 
 def logout_view(request):
     logout(request)

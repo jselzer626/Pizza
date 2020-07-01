@@ -30,6 +30,10 @@ i {
   z-index: -1;
 }
 
+.itemRegularListing {
+  padding-left: 75px !important;
+}
+
 footer div {
   height: 75%;
   border-top: 1px solid white;
@@ -119,6 +123,12 @@ footer div {
 
 .signUpForm div {
   text-align: right;
+}
+
+.signUpForm p {
+  margin-left: 0px;
+  display: none;
+  font-weight: bold;
 }
 
 #belowSignUpForm {
@@ -213,6 +223,17 @@ tbody button {
 
 tfoot > tr {
   background-color: rgba(0,0,0,.10);
+}
+
+#orderSummary {
+  background-color: rgba(0,0,0,.10);
+  display: inline-flex;
+  justify-content: space-around;
+}
+
+#orderSummary p {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 #cartDisplay tbody {
@@ -374,4 +395,19 @@ tfoot::before {
 #emptyOrderMessage {
   text-align: center;
   padding: 50px;
+}
+
+.notice {
+  margin-top: 1%;
+  text-align: center;
+  display: none;
+}
+
+.methodButtons {
+  display: inline-block;
+}
+
+.methodButtons p {
+  display: none;
+  margin-left: 0px !important;
 }

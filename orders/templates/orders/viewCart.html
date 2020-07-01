@@ -31,7 +31,14 @@
     }))
     //configure checkout button
     checkOutButtonContainer.querySelector("button").addEventListener("click", e => {
-        methodChoice == "not chosen" ? deliveryMethodOptions.querySelector(".text-danger").style.display = "block" : window.location.href = `checkOut/${orderNumber}/${methodChoice}/`
+        if (methodChoice == "not chosen")
+          deliveryMethodOptions.querySelector(".text-danger").style.display = "block"
+        else {
+          var checkoutForm = document.querySelector("#checkoutForm")
+          checkoutForm.querySelector("#orderDeliveryMethod").value = methodChoice
+          checkoutForm.querySelector("#orderToCheckout").value = orderNumber
+          checkoutForm.submit()
+        }
     })
 
     //properly display order total - the value returned from the db sometimes trails
@@ -156,6 +163,13 @@ View Cart
     <form id="deleteForm" method="POST" action="">
     {% csrf_token %}
     <input type="submit" value="DELETE">
+    </form>
+  </div>
+  <div hidden>
+    <form id="checkoutForm" action="{% url 'checkOut' %}" method="post">
+      {% csrf_token %}
+      <input name="orderToCheckout" id="orderToCheckout">
+      <input name="orderDeliveryMethod" id="orderDeliveryMethod">
     </form>
   </div>
 

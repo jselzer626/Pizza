@@ -36,9 +36,10 @@ def manageOrders(request, msg=''):
 
     return render(request, "orders/manageOrders.html", context)
 
-def markOrderComplete(request, pk):
+def markOrderComplete(request):
 
-    orderToComplete = Order.objects.get(pk=pk)
+    orderId = request.POST['orderToComplete']
+    orderToComplete = Order.objects.get(pk=orderId)
     orderToComplete.completed = True
     orderToComplete.save()
     '''confirm_address = orderToComplete.user.email
@@ -53,9 +54,12 @@ def showAboutPage(request):
 
     return render(request, "orders/about.html")
 
-def checkOut(request, pk, orderMethod):
+def checkOut(request):
 
-    currentOrder = Order.objects.get(pk=pk)
+    orderMethod = request.POST["orderDeliveryMethod"]
+    currentOrder = request.POST["orderToCheckout"]
+    currentOrder = Order.objects.get(pk=currentOrder)
+
     currentOrder.checkedOut = True
     currentOrder.method = orderMethod
     currentOrder.save()

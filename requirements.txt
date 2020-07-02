@@ -7,6 +7,7 @@ Django==3.0.6
 django-crispy-forms==1.9.1
 django-inlinecss==0.3.0
 future==0.18.2
+gunicorn==20.0.4
 idna==2.9
 psycopg2==2.8.5
 pynliner==0.8.0

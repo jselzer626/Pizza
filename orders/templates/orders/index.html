@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block staticfile %}
-<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 {% endblock %}
 {% block title %}
 Home
@@ -17,7 +17,7 @@ Home
     {% if not user.username %}
     <p class="lead"><a href="users/">Login</a></p>
     {% endif %}
-    <p class="lead"><a href="loadMenu">Menu</a></p>
+    <p class="lead"><a href="{% url 'loadMenu' %}">Menu</a></p>
     <p class="lead"><a href="{% url 'showAboutPage' %}">About</a></p>
   </div>
 </div>

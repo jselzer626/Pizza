@@ -10,12 +10,12 @@ Home
 {% block body %}
 <div class="hero-image" id="main-hero-image">
   <div class="hero-text">
-    <h1 id="main-header">Pinochio's</h1>
+    <h1 id="main-header">JS Pizza</h1>
     <p class="lead">Award Winning and Delicious!</p>
   </div>
   <div class="menuHeader" id="startMenu">
     {% if not user.username %}
-    <p class="lead"><a href="users/">Login</a></p>
+    <p class="lead" id="userMenuLogin"><a href="users/">Login</a></p>
     {% endif %}
     <p class="lead"><a href="{% url 'loadMenu' %}">Menu</a></p>
     <p class="lead"><a href="{% url 'showAboutPage' %}">About</a></p>

@@ -10,8 +10,7 @@ Create Order
 {% block body %}
 <div class="page-header">
   <h1>Menu</h1>
-  <br>
-  <p class="lead"><em>Please choose a category to view related menu items</em></p>
+  <p class="lead"><em>Choose a category to view related items</em></p>
 </div>
 <div class='menuHeader'>
   {% for category in categories %}
@@ -38,13 +37,16 @@ Create Order
     <tr>
       <td colspan="4">{{ menuItem }}</td>
       {% if category.name == 'PST' %}
-      <td colspan="2" class="itemRegularListing">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
+      <td colspan="2" class="itemRegularListing">{{ menuItem.priceSmall }}<button id="desktopItemAddButton" class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
       {% elif category.name == 'SLD' %}
-      <td colspan="2" class="itemRegularListing">{{ menuItem.priceSmall }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
+      <td colspan="2" class="itemRegularListing">{{ menuItem.priceSmall }}<button id="desktopItemAddButton" class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
       {% else %}
       <td>{{ menuItem.priceSmall }}</td>
-      <td>{{ menuItem.priceLarge }}<button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
-    {% endif %}
+      <td>{{ menuItem.priceLarge }}<button id="desktopItemAddButton" class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
+      {% endif %}
+    </tr>
+    <tr id="mobileItemAddButton">
+      <td colspan="6"><button class="btn btn-primary btn-sm">Add</button><span hidden><a href ="{% url 'addGeneralItem' menuItem.id %}"</span></td>
     </tr>
   {% endfor %}
   </tbody>

@@ -12,6 +12,30 @@ i {
   margin-right: 10px;
 }
 
+#mobileMenuButton {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .nav-link:not(.mobile) {
+    display: none;
+  }
+  #mobileMenuButton {
+    position: absolute;
+    top: 20;
+    right: 15;
+    display: block;
+  }
+}
+
+#mobileMenu {
+  margin-top: 25px;
+}
+
+#mobileMenu a {
+  padding-bottom: 0px;
+}
+
 .footer-details {
   height: 50%;
 }
@@ -42,6 +66,33 @@ footer div {
   flex-flow: row wrap;
   justify-content: space-around;
 }
+
+footer {
+  color: white;
+  height: 175px;
+  bottom: 0;
+  width: 100%;
+  background-image: linear-gradient(to right, #bf0000, red);
+}
+
+.footer-details > p {
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 600px) {
+  footer {
+    height: max-content;
+  }
+  footer div {
+    margin-top: 0px;
+    width: 100%;
+  }
+  .footer-details > p {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+}
+
 .userMenu {
   font-size: 125px;
   margin-top: 125px;
@@ -82,6 +133,39 @@ footer div {
   font: 35px 'Pacifico', Helvetica, sans-serif;
 }
 
+#mobileItemAddButton {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .menuHeader a {
+    font: 30px 'Pacifico', Helvetica, sans-serif;
+  }
+  #userMenuLogin {
+    display: none;
+  }
+  .menuHeader p {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 10px;
+  }
+  .menuHeader {
+    flex-flow: row;
+    overflow: scroll;
+    justify-content: flex-start;
+  }
+  #desktopItemAddButton {
+    display: none;
+  }
+  #mobileItemAddButton {
+    display: table-row;
+  }
+  #mobileItemAddButton {
+    text-align: right;
+  }
+}
+
+
 .userMenu p {
   margin-top: 25px;
   font-size: 20px;
@@ -89,10 +173,6 @@ footer div {
 
 .userMenu a {
   color: black;
-}
-
-.footer-details > p {
-  margin-top: 15px;
 }
 
 .signUpForm {
@@ -153,15 +233,6 @@ footer div {
   background-image: url("images/pizza_restaurant_photo.jpg");
   background-size: cover;
   z-index: -1;
-}
-
-footer {
-  color: white;
-  height: 175px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  background-image: linear-gradient(to right, #bf0000, red);
 }
 
 .navbar-brand {
@@ -374,6 +445,19 @@ tfoot::before {
 
 #main-header {
   font: 400 100px/1.5 'Pacifico', Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 600px) {
+  #main-header {
+    font: 400 60px/1.5 'Pacifico', Helvetica, sans-serif;
+  }
+  .hero-text {
+    top: 50%;
+    width: max-content;
+  }
+  #main-hero-image{
+    margin-bottom: 3%;
+  }
 }
 
 #orderList {

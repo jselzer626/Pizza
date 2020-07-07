@@ -21,13 +21,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
-# SECRET_KEY = os.environ["SECRET_KEY"]
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ["SECRET_KEY"]
+
+# this won't run locally unless you turn to True
 DEBUG = False
 
-ALLOWED_HOSTS = ["jls-pizza.herokuapp.com"]
+ALLOWED_HOSTS = ["localhost", "jls-pizza.herokuapp.com"]
 
 # Application definition
 

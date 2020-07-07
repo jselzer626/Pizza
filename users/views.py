@@ -31,9 +31,10 @@ def login_view(request):
 
 def register_confirm(request):
     username = request.POST["new_username"]
-    if User.objects.get(username=username):
+    try:
+        User.objects.get(username=username)
         return render(request, "users/register.html", {"message": "Username already taken, please choose something different!"})
-    else:
+    except User.DoesNotExist:
         password = request.POST["new_password"]
         email = request.POST["email"]
         next = request.POST.get('next') if request.POST.get('next') != '' else "/"

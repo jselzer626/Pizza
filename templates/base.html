@@ -15,14 +15,14 @@
     {% block staticfile %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
   </head>
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar">
     <a class="navbar-brand lead" href="/"><i class="fas fa-utensils"></i>JS Pizza</a>
     <ul class="navbar-nav ml-auto">
       {% if user.username %}
       <div class="dropdown d-inline">
-        <a class="nav-link dropdown-toggle lead" role="button" id="userDetails" data-toggle="dropdown"><i class="far fa-user"></i>{{ user.username }}</a>
+        <a class="nav-link dropdown-toggle lead mobile" role="button" id="userDetails" data-toggle="dropdown"><i class="far fa-user"></i>{{ user.username }}</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/">Home</a>
+            <li><a class="dropdown-item" href="/">Home</a></li>
             <a class="dropdown-item" href="{% url 'viewCart' %}">View Cart</a>
             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
             {% if user.is_superuser %}
@@ -35,14 +35,14 @@
       <a class="nav-link lead" href="{% url 'loadMenu' %}">Menu</a>
       <a class="nav-link lead" href="{% url 'loginIndex' %}">Login</a>
       <a id="mobileMenuButton" data-toggle="collapse" data-target="#mobileMenu"><i class="fas fa-bars"></i></a>
-      <div id="mobileMenu" class="collapse">
-        <a class="nav-link lead mobile" href="/">Home</a>
-        <a class="nav-link lead mobile" href="{% url 'loadMenu' %}">Menu</a>
-        <a class="nav-link lead mobile" href="{% url 'loginIndex' %}">Login</a>
-      </div>
       {% endif %}
     </ul>
   </nav>
+  <div id="mobileMenu" class="collapse">
+    <p><a class="lead mobile" href="/">Home</a></p>
+    <p><a class="lead mobile" href="{% url 'loadMenu' %}">Menu</a></p>
+    <p><a class="lead mobile" href="{% url 'loginIndex' %}">Login</a></p>
+  </div>
   <body>
     <div class="container">
     <div id="restaurant-pic"></div>

@@ -20,20 +20,26 @@ i {
   .nav-link:not(.mobile) {
     display: none;
   }
+  .dropdown {
+    display: none;
+  }
   #mobileMenuButton {
     position: absolute;
     top: 20;
     right: 15;
     display: block;
+    color: white;
+    font-size: 20px;
   }
-}
-
-#mobileMenu {
-  margin-top: 25px;
-}
-
-#mobileMenu a {
-  padding-bottom: 0px;
+  .lead.mobile {
+    color: black;
+  }
+  #mobileMenu p {
+    background-image: linear-gradient(to right, white, silver);
+    margin-bottom: 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+  }
 }
 
 .footer-details {
@@ -149,7 +155,7 @@ footer {
     margin-left: 15px;
     margin-top: 10px;
   }
-  .menuHeader {
+  .menuHeader:not(#startMenu) {
     flex-flow: row;
     overflow: scroll;
     justify-content: flex-start;

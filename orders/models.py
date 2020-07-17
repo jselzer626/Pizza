@@ -64,7 +64,7 @@ class CheesesteakTopping(models.Model):
 class MenuItem(models.Model):
 
     #would need a foreign key for the order with which its associated
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=40)
     priceSmall = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
     priceLarge = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
     PIZZA_STYLES = [

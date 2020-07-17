@@ -509,6 +509,12 @@ tfoot::before {
   #main-hero-image{
     margin-bottom: 3%;
   }
+  footer div {
+    margin-top: 0px;
+  }
+  thead th {
+    text-align: left;
+  }
 }
 
 #orderList {

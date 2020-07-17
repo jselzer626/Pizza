@@ -11,6 +11,7 @@
     let orderNumber = document.querySelector("#orderNumber") ? document.querySelector("#orderNumber").dataset.order : ''
     let checkOutButtonContainer = document.querySelector(".modal-footer")
     let methodChoice = "not chosen"
+    let pageFooter = document.querySelector("tfoot")
 
     //configure delete buttons
     document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {
@@ -44,7 +45,27 @@
     //properly display order total - the value returned from the db sometimes trails
     total ? document.querySelectorAll("#orderTotalDisplay").forEach(span => span.innerHTML = total) : ''
 
+    //mobile styling
+    if (document.querySelector("#checkOut") && document.querySelector("#checkOut").style.display == '') {
+        var orderDetails = pageFooter.querySelector("tr")
+        var tableHeader = document.querySelector("thead")
+        var mobileEditMenu = document.querySelector("tr.collapse")
+        orderDetails.querySelectorAll("td").forEach(cell => cell.colSpan = 2)
+        tableHeader.querySelectorAll("th").forEach(header => {
+          if (header.innerHTML == "Item Total") 
+            header.style.display = "none"
+          else if (header.innerHTML == "Name" || header.innerHTML == "Notes")
+            header.colSpan = 2
+          header.style.textAlign = "center"
+        })
+      document.querySelectorAll("#itemName").forEach(cell => cell.colSpan = 2)
+      document.querySelectorAll("#itemNotes").forEach(cell => cell.colSpan = 2)
 
+      mobileEditMenu.querySelectorAll("button").forEach(button => {
+        button.addEventListener('click', e => e.target.parentElement.querySelector('a').click())
+      })
+    }
+    
     headerSpace.querySelector('button').addEventListener('click', () => {
       headerSpace.querySelector('a').click()
     })
@@ -105,6 +126,17 @@ View Cart
   </div>
 </div>
 </div>
+<!--<div class="modal fade" id="itemEditModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-pizza-slice"></i>Edit Cart Item</h5><button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>-->
 <h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart<button class="btn btn-primary">Back</button><a hidden href = "{% url 'loadMenu' %}"></a></h1>
 
   <table class="table" id="cartDisplay">
@@ -113,7 +145,7 @@ View Cart
         <th>Name</th>
         <th>Size</th>
         <th>Quantity</th>
-        <th>Special Notes</th>
+        <th>Notes</th>
         <th>Item Total</th>
         </tr>
     </thead>
@@ -121,33 +153,44 @@ View Cart
     <tbody>
       {% for detail in object_list %}
       <tr>
-        <td>{{ detail.item }}</td>
+        <td id="itemName">{{ detail.item }}</td>
         {% if detail.size %}
         <td>{{ detail.size }}</td>
         {% else %}
         <td>RG</td>
         {% endif %}
         <td>{{ detail.quantity }}</td>
-        <td>{{ detail.notes }}</td>
-        <td>${{ detail.updateTotal }}<div id="itemEditOptions" class="dropdown">
+        <td id="itemNotes">{{ detail.notes }}</td>
+        <td id="itemEditDesktop">${{ detail.updateTotal }}<div class="dropdown">
           <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Edit</button>
           <div class="dropdown-menu">
             <a class="dropdown-item" data-action="delete" data-link="{% url 'deleteOrderItem' detail.id %}" >Delete</a>
             <a class="dropdown-item" data-action="edit" href="{% url 'editItem' detail.id %}">Update</a>
             </div>
-  <!--<button id="{{ detail.id }}" class="btn btn-primary btn-sm">Update</button>-->
           </div>
         </td>
+      </tr>
+      <tr>
+        <td id="itemEditMobile" colSpan=6><b>Item Total: </b>${{ detail.updateTotal }}
+            <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#itemEditMenu{{detail.id}}">Edit</button>
+        </td>
+      </tr>
+      <tr id="itemEditMenu{{detail.id}}" class="collapse">
+        <td colspan=3><button class="btn btn-primary">Update Item</button><a hidden href="{% url 'editItem' detail.id %}"></a></td>
+        <td colspan=3><button class="btn btn-primary">Delete Item</button><a hidden href="{% url 'deleteOrderItem' detail.id %}"></a></td>
       </tr>
       {% endfor %}
       </tbody>
       <tfoot>
         <p hidden id="orderTotalRaw">{{ object_list.0.order.updateTotal }}</p>
         <tr>
-        <td id="orderNumber" data-order="{{ object_list.0.order.id }}"><b>Order #: </b>{{ object_list.0.order.id }}</td>
-        <td colspan="2"><b>Last Updated: </b>{{ object_list.0.order.lastUpdated }}</td>
-        <td><b>Total: </b>$<span id="orderTotalDisplay"></span></td>
-        <td id="checkOut"><button class="btn btn-primary" data-toggle="modal" data-target="#checkoutModal">Checkout</button></td>
+          <td id="orderNumber" data-order="{{ object_list.0.order.id }}"><b>Order #: </b>{{ object_list.0.order.id }}</td>
+          <td colspan="2" id="lastUpdated"><b>Last Updated: </b>{{ object_list.0.order.lastUpdated }}</td>
+          <td><b>Total: </b>$<span id="orderTotalDisplay"></span></td>
+          <td id="checkOut"><button class="btn btn-primary" data-toggle="modal" data-target="#checkoutModal">Checkout</button></td>
+        </tr>
+        <tr id="mobileCheckOut">
+          <td colspan=6><button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#checkoutModal">Checkout</button></td>
         </tr>
       </tfoot>
   {% else %}

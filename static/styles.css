@@ -20,6 +20,10 @@ i {
   margin-left: 25px;
 }
 
+#mobileCheckOut {
+  display: none;
+}
+
 @media screen and (max-width: 600px) {
   .nav-link:not(.mobile) {
     display: none;
@@ -50,11 +54,38 @@ i {
     margin-left: 0px !important;
   }
   .buttonHolder input {
-    margin-top: 15px !important;
-    margin-bottom: 15px;
+    margin-top: 25px !important;
+    margin-bottom: 5px;
   }
   .form {
     width: 90% !important;
+  }
+  #checkOut {
+    display: none;
+  }
+  #checkOut button {
+    display: none;
+  }
+  #mobileCheckOut {
+    padding-top: 25px;
+    display: table-row;
+    background-color: inherit;
+    text-align: center;
+  }
+  #mobileCheckOut td {
+    padding-top: 25px;
+  }
+  #mobileCheckOut button {
+    width: 75%;
+  }
+  #itemEditDesktop {
+    display: none;
+  }
+  .itemRegularListing {
+    text-align: left;
+  }
+  .itemRegularListing button {
+    margin-left: 10px;
   }
 }
 
@@ -182,8 +213,6 @@ footer {
     text-align: right;
   }
 }
-
-
 
 .userMenu p {
   margin-top: 25px;
@@ -386,8 +415,12 @@ tfoot::before {
   margin-top: 3%;
 }
 
-#itemEditOptions {
+#itemEditDesktop div {
   display: inline;
+}
+
+#itemEditMobile button {
+  float: right;
 }
 
 

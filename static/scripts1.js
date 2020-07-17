@@ -36,12 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
           large.style.display = "none"
           small.colSpan = 2
           small.innerHTML = "Regular"
-          small.style.textAlign = "center"
+          desktopAddButton.forEach(button => button.style.display = "table-cell")
+          mobileAddButton.forEach(button => button.style.display = "none")
         } else {
           large.style.display = "block"
           small.colSpan = 1
           small.innerHTML = "Small"
           small.style.textAlign = "left"
+          desktopAddButton.forEach(button => button.style.display = "none")
+          mobileAddButton.forEach(button => button.style.display = "")
         }
       })
     })

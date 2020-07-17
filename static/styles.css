@@ -508,9 +508,7 @@ tfoot::before {
   }
   #main-hero-image{
     margin-bottom: 3%;
-  }
-  footer div {
-    margin-top: 0px;
+    height: 100%;
   }
   thead th {
     text-align: left;

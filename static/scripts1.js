@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let menu = document.querySelector('table')
     let alert = document.querySelector(".alert") ? document.querySelector(".alert") : ''
     let bannerImage = document.querySelector(".hero-image")
-
-    //select pasta
-    document.querySelector('#Pasta').classList.add('selected')
-    menuHeader.querySelector('p[data-section="Pasta"]').style.fontWeight = 'bold'
+    let large = document.querySelector("#large")
+    let small = document.querySelector("#small")
+    let desktopAddButton = document.querySelectorAll("#desktopItemAddButton")
+    let mobileAddButton = document.querySelectorAll("#mobileItemAddButton")
 
     // ----------------------------------------------------------------------------------------------------------------------------
     // configure buttons
@@ -16,9 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
       button.addEventListener("click", e => {
         // section names are stored as data attributes in each header label
         //remove previous bolding and selected section
-        var previous = document.querySelector('.selected')
-        menuHeader.querySelector(`p[data-section="${previous.id}"]`).style.fontWeight = ''
-        previous.classList.remove('selected')
+        var previous = document.querySelector('.selected') || ''
+        if (previous) {
+          menuHeader.querySelector(`p[data-section="${previous.id}"]`).style.fontWeight = ''
+          previous.classList.remove('selected')
+        }
 
         //add bolding and visibility to current section
         var targetCategory = e.target.dataset.section
@@ -28,12 +30,27 @@ document.addEventListener("DOMContentLoaded", () => {
         var sectionToDisplay = document.getElementById(`${targetCategory}`)
         e.target.style.fontWeight = 'bold'
         sectionToDisplay.classList.add('selected')
+
+        //change small and large to regular if those sizes don't exist for category selected
+        if (targetCategory == "Salads" || targetCategory == "Pasta") {
+          large.style.display = "none"
+          small.colSpan = 2
+          small.innerHTML = "Regular"
+          small.style.textAlign = "center"
+        } else {
+          large.style.display = "block"
+          small.colSpan = 1
+          small.innerHTML = "Small"
+          small.style.textAlign = "left"
+        }
       })
     })
 
+    //select pasta to start
+    menuHeader.querySelector('p').click()
+
     menu.querySelectorAll('button').forEach(button => {
       button.onclick = e => {
-        console.log(e.target.parentElement)
         e.target.parentElement.querySelector('a').click()
       }
     })

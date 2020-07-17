@@ -26,7 +26,7 @@ load_dotenv()
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # this won't run locally unless you turn to True
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["localhost", "jls-pizza.herokuapp.com"]
 

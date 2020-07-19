@@ -24,71 +24,6 @@ i {
   display: none;
 }
 
-@media screen and (max-width: 600px) {
-  .nav-link:not(.mobile) {
-    display: none;
-  }
-  .dropdown {
-    display: none;
-  }
-  #mobileMenuButton {
-    position: absolute;
-    top: 20;
-    right: 15;
-    display: block;
-    color: white;
-    font-size: 20px;
-  }
-  .lead.mobile {
-    color: black;
-  }
-  #mobileMenu p {
-    background-image: linear-gradient(to right, white, silver);
-    margin-bottom: 0px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid black;
-  }
-  .specialHeader button {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: 0px !important;
-  }
-  .buttonHolder input {
-    margin-top: 25px !important;
-    margin-bottom: 5px;
-  }
-  .form {
-    width: 90% !important;
-  }
-  #checkOut {
-    display: none;
-  }
-  #checkOut button {
-    display: none;
-  }
-  #mobileCheckOut {
-    padding-top: 25px;
-    display: table-row;
-    background-color: inherit;
-    text-align: center;
-  }
-  #mobileCheckOut td {
-    padding-top: 25px;
-  }
-  #mobileCheckOut button {
-    width: 75%;
-  }
-  #itemEditDesktop {
-    display: none;
-  }
-  .itemRegularListing {
-    text-align: left;
-  }
-  .itemRegularListing button {
-    margin-left: 10px;
-  }
-}
-
 .footer-details {
   height: 50%;
 }
@@ -126,20 +61,6 @@ footer {
 
 .footer-details > p {
   margin-top: 15px;
-}
-
-@media screen and (max-width: 600px) {
-  footer {
-    height: max-content;
-  }
-  footer div {
-    margin-top: 0px;
-    width: 100%;
-  }
-  .footer-details > p {
-    margin-top: 25px;
-    margin-bottom: 25px;
-  }
 }
 
 .userMenu {
@@ -184,34 +105,6 @@ footer {
 
 #mobileItemAddButton {
   display: none;
-}
-
-@media screen and (max-width: 600px) {
-  .menuHeader a {
-    font: 30px 'Pacifico', Helvetica, sans-serif;
-  }
-  #userMenuLogin {
-    display: none;
-  }
-  .menuHeader p {
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-top: 10px;
-  }
-  .menuHeader:not(#startMenu) {
-    flex-flow: row;
-    overflow: scroll;
-    justify-content: flex-start;
-  }
-  #desktopItemAddButton {
-    display: none;
-  }
-  #mobileItemAddButton {
-    display: table-row;
-  }
-  #mobileItemAddButton {
-    text-align: right;
-  }
 }
 
 .userMenu p {
@@ -415,14 +308,13 @@ tfoot::before {
   margin-top: 3%;
 }
 
-#itemEditDesktop div {
-  display: inline;
-}
-
 #itemEditMobile button {
   float: right;
 }
 
+#itemEditMobile {
+  display: none;
+}
 
 #div_id_item select {
   font-weight: bold;
@@ -498,23 +390,6 @@ tfoot::before {
   font: 400 100px/1.5 'Pacifico', Helvetica, sans-serif;
 }
 
-@media screen and (max-width: 600px) {
-  #main-header {
-    font: 400 60px/1.5 'Pacifico', Helvetica, sans-serif;
-  }
-  .hero-text {
-    top: 50%;
-    width: max-content;
-  }
-  #main-hero-image{
-    margin-bottom: 3%;
-    height: 100%;
-  }
-  thead th {
-    text-align: left;
-  }
-}
-
 #orderList {
   margin-top: 2%;
   margin-bottom: 3%;
@@ -549,4 +424,143 @@ tfoot::before {
 .methodButtons p {
   display: none;
   margin-left: 0px !important;
+}
+
+/* mobile styling */
+@media screen and (max-width: 600px) {
+  .nav-link:not(.mobile) {
+    display: none;
+  }
+  .dropdown {
+    display: none;
+  }
+  #mobileMenuButton {
+    position: absolute;
+    top: 20;
+    right: 15;
+    display: block;
+    color: white;
+    font-size: 20px;
+  }
+  .lead.mobile {
+    color: black;
+  }
+  #mobileMenu p {
+    background-image: linear-gradient(to right, white, silver);
+    margin-bottom: 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+  }
+  .specialHeader {
+    width: 100%;
+  }
+  .specialHeader button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .buttonHolder input {
+    margin-top: 25px !important;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+  .form {
+    width: 90% !important;
+  }
+  #checkOut {
+    display: none;
+  }
+  #checkOut button {
+    display: none;
+  }
+  #mobileCheckOut {
+    padding-top: 25px;
+    display: table-row;
+    background-color: inherit;
+    text-align: center;
+  }
+  #mobileCheckOut td {
+    padding-top: 25px;
+  }
+  #mobileCheckOut button {
+    width: 100%;
+  }
+  #itemEditDesktop {
+    display: none;
+  }
+  .itemRegularListing {
+    text-align: left;
+  }
+  .itemRegularListing button {
+    margin-left: 10px;
+  }
+  footer {
+    height: max-content;
+  }
+  footer div {
+    margin-top: 0px;
+    width: 100%;
+  }
+  .footer-details > p {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .menuHeader a {
+    font: 30px 'Pacifico', Helvetica, sans-serif;
+  }
+  #userMenuLogin {
+    display: none;
+  }
+  .menuHeader p {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 10px;
+  }
+  .menuHeader:not(#startMenu) {
+    flex-flow: row;
+    overflow: scroll;
+    justify-content: flex-start;
+  }
+  #desktopItemAddButton {
+    display: none;
+  }
+  #mobileItemAddButton {
+    display: table-row;
+  }
+  #mobileItemAddButton {
+    text-align: right;
+  }
+  #main-header {
+    font: 400 60px/1.5 'Pacifico', Helvetica, sans-serif;
+  }
+  .hero-text {
+    top: 50%;
+    width: max-content;
+  }
+  #main-hero-image{
+    margin-bottom: 3%;
+    height: 100%;
+  }
+  thead th {
+    text-align: left;
+  }
+  #large {
+    border-bottom: 0px;
+  }
+  #div_id_toppings ul {
+    margin: 0px;
+    width: 100%;
+    margin-top: 5%;
+  }
+  #div_id_toppings i {
+    margin-left: 0px;
+  }
+  .text-danger {
+    margin-right: 0px;
+  }
+  tfoot::before {
+    height: 20px;
+  }
+  #itemEditMobile {
+    display: table-cell;
+  }
 }

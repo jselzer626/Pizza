@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let toppings = []
     let action = document.querySelector('h1').dataset.action
-    console.log(action)
     //if this page is being accessed to edit an existing order item
     let currentToppings = (Array.from(document.querySelector("#id_toppings"))).filter(option => option.selected == true)
     let sizeSelector = document.querySelector("#div_id_size") ? document.querySelector("#div_id_size") : ''
@@ -19,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let cheesesteak = document.querySelector("#itemName").dataset.name == "Steak + Cheese Sandwich" ? true : false
     let toppingSelectBox = document.querySelector("#id_toppings") ? document.querySelector("#id_toppings") : ''
 
+    // make add item big if mobile
+    window.screen.width < 600 ? document.querySelector("#submit-id-submit").className += " btn-lg" : ''
 
     let hideMenuComponents = category => {
 

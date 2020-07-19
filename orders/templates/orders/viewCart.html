@@ -12,9 +12,10 @@
     let checkOutButtonContainer = document.querySelector(".modal-footer")
     let methodChoice = "not chosen"
     let pageFooter = document.querySelector("tfoot")
+    let emptyCart = document.querySelector("#emptyMessage") ? true : false
 
     //configure delete buttons
-    document.querySelectorAll('.dropdown-item[data-action="delete"]').forEach(link => {
+    document.querySelectorAll('a[data-action="delete"]').forEach(link => {
       link.addEventListener('click', e => {
         var deleteForm = document.querySelector("#deleteForm")
         deleteForm.action = e.target.dataset.link
@@ -46,24 +47,26 @@
     total ? document.querySelectorAll("#orderTotalDisplay").forEach(span => span.innerHTML = total) : ''
 
     //mobile styling
-    if (document.querySelector("#checkOut") && document.querySelector("#checkOut").style.display == '') {
+    if (window.screen.width < 600) {
+      var tableHeader = document.querySelector("thead")
+      tableHeader.querySelectorAll("th").forEach(header => {
+            if (header.innerHTML == "Item Total") 
+              header.style.display = "none"
+            else if (header.innerHTML == "Name" || header.innerHTML == "Notes")
+              header.colSpan = 2
+            header.style.textAlign = "center"
+          })
+      if (!emptyCart) {
         var orderDetails = pageFooter.querySelector("tr")
-        var tableHeader = document.querySelector("thead")
         var mobileEditMenu = document.querySelector("tr.collapse")
-        orderDetails.querySelectorAll("td").forEach(cell => cell.colSpan = 2)
-        tableHeader.querySelectorAll("th").forEach(header => {
-          if (header.innerHTML == "Item Total") 
-            header.style.display = "none"
-          else if (header.innerHTML == "Name" || header.innerHTML == "Notes")
-            header.colSpan = 2
-          header.style.textAlign = "center"
-        })
-      document.querySelectorAll("#itemName").forEach(cell => cell.colSpan = 2)
-      document.querySelectorAll("#itemNotes").forEach(cell => cell.colSpan = 2)
+        orderDetails.querySelectorAll("td").forEach(cell => cell.colSpan = 2) 
+        document.querySelectorAll("#itemName").forEach(cell => cell.colSpan = 2)
+        document.querySelectorAll("#itemNotes").forEach(cell => cell.colSpan = 2)
 
-      mobileEditMenu.querySelectorAll("button").forEach(button => {
-        button.addEventListener('click', e => e.target.parentElement.querySelector('a').click())
-      })
+        mobileEditMenu.querySelectorAll("button").forEach(button => {
+          button.addEventListener('click', e => e.target.parentElement.querySelector('a').click())
+        })
+      }
     }
     
     headerSpace.querySelector('button').addEventListener('click', () => {
@@ -126,17 +129,6 @@ View Cart
   </div>
 </div>
 </div>
-<!--<div class="modal fade" id="itemEditModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><i class="fas fa-pizza-slice"></i>Edit Cart Item</h5><button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
-      </div>
-      <div class="modal-body">
-      </div>
-    </div>
-  </div>
-</div>-->
 <h1 class="specialHeader"><i class="fas fa-shopping-cart"></i>Your Cart<button class="btn btn-primary">Back</button><a hidden href = "{% url 'loadMenu' %}"></a></h1>
 
   <table class="table" id="cartDisplay">
@@ -146,7 +138,7 @@ View Cart
         <th>Size</th>
         <th>Quantity</th>
         <th>Notes</th>
-        <th>Item Total</th>
+        <th colspan=2>Item Total</th>
         </tr>
     </thead>
     {% if object_list %}
@@ -161,11 +153,11 @@ View Cart
         {% endif %}
         <td>{{ detail.quantity }}</td>
         <td id="itemNotes">{{ detail.notes }}</td>
-        <td id="itemEditDesktop">${{ detail.updateTotal }}<div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Edit</button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" data-action="delete" data-link="{% url 'deleteOrderItem' detail.id %}" >Delete</a>
-            <a class="dropdown-item" data-action="edit" href="{% url 'editItem' detail.id %}">Update</a>
+        <td id="itemEditDesktop" colspan=2>${{ detail.updateTotal }}<div class="dropdown d-inline">
+          <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">Edit</button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" data-action="delete" data-link="{% url 'deleteOrderItem' detail.id %}" >Delete</a>
+              <a class="dropdown-item" data-action="edit" href="{% url 'editItem' detail.id %}">Update</a>
             </div>
           </div>
         </td>
@@ -177,7 +169,7 @@ View Cart
       </tr>
       <tr id="itemEditMenu{{detail.id}}" class="collapse">
         <td colspan=3><button class="btn btn-primary">Update Item</button><a hidden href="{% url 'editItem' detail.id %}"></a></td>
-        <td colspan=3><button class="btn btn-primary">Delete Item</button><a hidden href="{% url 'deleteOrderItem' detail.id %}"></a></td>
+        <td colspan=3><button class="btn btn-primary">Delete Item</button><a hidden data-action="delete" data-link="{% url 'deleteOrderItem' detail.id %}"></a></td>
       </tr>
       {% endfor %}
       </tbody>
@@ -196,7 +188,7 @@ View Cart
   {% else %}
     <tbody id="emptyMessage">
       <tr>
-      <td colspan="5" class="lead" id="emptyCartMessage"><b>Your cart is empty!</b></td>
+      <td colspan="6" class="lead" id="emptyCartMessage"><b>Your cart is empty!</b></td>
       </tr>
     </tbody>
   {% endif %}

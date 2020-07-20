@@ -12,6 +12,9 @@
     }
     let completeForm = document.querySelector("#completeForm")
 
+    // add margin
+    document.querySelector("button").style.marginBottom = "20px"
+
     // configuring delete button to submit the delete item form so we can bypass confirmation on a separate page
     if (orderList) {
       orderList.querySelectorAll("a[data-action='delete']").forEach(link => {

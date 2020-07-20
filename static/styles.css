@@ -8,6 +8,10 @@ body, html {
   background-image: linear-gradient(to right, #bf0000, red);
 }
 
+.navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
 i {
   margin-right: 10px;
 }
@@ -158,7 +162,7 @@ footer {
 }
 
 .btn-primary {
-  background-color: #bf0000;
+  background-image: linear-gradient(to right, #bf0000, red);
   border: black;
 }
 
@@ -253,21 +257,14 @@ tfoot > tr {
 }
 
 .alert {
-  height: 7%;
-  margin-top: 10px;
-  background-color: rgba(0,0,0,.15);
+  margin-top: 20px;
+  background-color: rgba(0,0,0,.10);
 }
-
-.alert button {
-  margin-left: 15px;
-}
-
 
 .alert p {
-  margin-top: .75%;
-  font-weight: 400;
+  font-weight: 350;
+  margin-bottom: 0px;
 }
-
 
 td .fa-trash {
   margin-left: 15%;
@@ -395,6 +392,10 @@ tfoot::before {
   margin-bottom: 3%;
 }
 
+#orderList th {
+  text-align: center;
+}
+
 #orderListHeader {
   padding-bottom: 15;
   border-bottom: 1px solid black;
@@ -424,6 +425,12 @@ tfoot::before {
 .methodButtons p {
   display: none;
   margin-left: 0px !important;
+}
+
+#desktopNonUserLinks {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 175px;
 }
 
 /* mobile styling */
@@ -553,9 +560,12 @@ tfoot::before {
   }
   #div_id_toppings i {
     margin-left: 0px;
+    position: absolute;
+    right: 30;
+    left: auto;
   }
   .text-danger {
-    margin-right: 0px;
+    margin-left: 0px;
   }
   tfoot::before {
     height: 20px;

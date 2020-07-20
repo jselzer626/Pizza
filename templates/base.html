@@ -21,25 +21,30 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <nav class="navbar">
-    <a class="navbar-brand lead" href="/"><i class="fas fa-utensils"></i>JS Pizza</a>
+    <a class="navbar-brand lead" href="/"><i class="fas fa-pizza-slice"></i>JS Pizza</a>
     <ul class="navbar-nav ml-auto">
       {% if user.username %}
       <div class="dropdown d-inline">
         <a class="nav-link dropdown-toggle lead" role="button" id="userDetails" data-toggle="dropdown"><i class="far fa-user"></i>{{ user.username }}</a>
           <div class="dropdown-menu">
-            <li><a class="dropdown-item" href="/">Home</a></li>
-            <a class="dropdown-item" href="{% url 'viewCart' %}">View Cart</a>
+            <a class="dropdown-item" href="/">Home</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'viewCart' 'no action' %}">View Cart</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
             {% if user.is_superuser %}
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'manageOrders' %}">Manage Orders</a>
             {% endif %}
           </div>
       </div>
       <a id="mobileMenuButton" data-toggle="collapse" data-target="#mobileMenu"><i class="far fa-user"></i>{{ user.username }}</a>
       {% else %}
-      <a class="nav-link lead" href="/">Home</a>
-      <a class="nav-link lead" href="{% url 'loadMenu' %}">Menu</a>
-      <a class="nav-link lead" href="{% url 'loginIndex' %}">Login</a>
+      <div id="desktopNonUserLinks">
+        <a class="nav-link lead" href="/">Home</a>
+        <a class="nav-link lead" href="{% url 'loadMenu' %}">Menu</a>
+        <a class="nav-link lead" href="{% url 'loginIndex' %}">Login</a>
+      </div>
       <a id="mobileMenuButton" data-toggle="collapse" data-target="#mobileMenu"><i class="fas fa-bars"></i></a>
       {% endif %}
     </ul>
@@ -48,7 +53,7 @@
     <p><a class="lead mobile" href="/">Home</a></p>
     <p><a class="lead mobile" href="{% url 'loadMenu' %}">Menu</a></p>
     {% if user.username %}
-    <p><a class="lead mobile" href="{% url 'viewCart' %}">View Cart</a></p>
+    <p><a class="lead mobile" href="{% url 'viewCart' 'no action' %}">View Cart</a></p>
     {% if user.is_superuser %}
     <p><a class="lead mobile" href="{% url 'manageOrders' %}">Manage Orders</a></p>
     {% endif %}

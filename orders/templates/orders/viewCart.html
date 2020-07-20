@@ -82,7 +82,7 @@ View Cart
 
 {% block body %}
 
-{% if message %}
+{% if message != "no action" %}
 <div class="alert" role="alert">
   <p class="lead"><b>{{ message }}</b></p>
 </div>
@@ -157,6 +157,7 @@ View Cart
           <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">Edit</button>
             <div class="dropdown-menu">
               <a class="dropdown-item" data-action="delete" data-link="{% url 'deleteOrderItem' detail.id %}" >Delete</a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" data-action="edit" href="{% url 'editItem' detail.id %}">Update</a>
             </div>
           </div>

@@ -103,7 +103,7 @@ class editItem(UpdateView):
     model = OrderDetail
     form_class = addItemForm
     template_name = "orders/editItem.html"
-    success_url = reverse_lazy("viewCart")
+    success_url = reverse_lazy("viewCart", kwargs={"msg":"Item Updated"})
 
     def form_valid(self, form):
         form.instance.updateTotal()
@@ -113,7 +113,7 @@ class addGeneralItem(LoginRequiredMixin, CreateView):
     login_url = "/users/"
     model = OrderDetail
     form_class = addItemForm
-    success_url = reverse_lazy("viewCart")
+    success_url = reverse_lazy("viewCart", kwargs={"msg":"Item Added!"})
 
     def get_initial(self):
 
@@ -151,17 +151,13 @@ class viewCart(ListView):
     def get_context_data(self, **kwargs):
         origin = self.request.headers['Referer']
         context = super().get_context_data(**kwargs)
-        try:
-            currentOrder = Order.objects.get(user=self.request.user, checkedOut=False)
-        except Order.DoesNotExist:
-            currentOrder = None
-        context['message'] = "Item added!" if "add" in origin else ("Item updated!" if "edit" in origin else ("Item deleted!" if 'view' in origin else ''))
+        context['message'] = self.kwargs['msg']
         return context
 
 class deleteItem(DeleteView):
 
     model = OrderDetail
-    success_url = reverse_lazy("viewCart")
+    success_url = reverse_lazy("viewCart", kwargs={"msg": "Item Deleted!"})
 
 class deleteOrder(DeleteView):
 

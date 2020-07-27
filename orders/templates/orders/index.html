@@ -2,6 +2,14 @@
 {% load static %}
 {% block staticfile %}
 <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<script>
+  document.addEventListener('DOMContentLoaded', e => {
+    let menuHeader = document.querySelector('#startMenu')
+    menuHeader.querySelector('a').onClick = () => {
+        window._paq.push('trackEvent', 'testTrack', 'didThisWork')
+    }
+  })
+</script>
 {% endblock %}
 {% block title %}
 Home
@@ -15,8 +23,7 @@ Home
   </div>
   <div class="menuHeader" id="startMenu">
     {% if not user.username %}
-    <p class="lead" id="userMenuLogin"><a href="users/" onClick={e =>
-      {window._paq.push(["trackEvent", "testRetrieval", "linkClicked"])}>Login</a></p>
+    <p class="lead" id="userMenuLogin"><a href="users/">Login</a></p>
     {% endif %}
     <p class="lead"><a href="{% url 'loadMenu' %}">Menu</a></p>
     <p class="lead"><a href="{% url 'showAboutPage' %}">About</a></p>

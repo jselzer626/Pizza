@@ -6,7 +6,7 @@
   document.addEventListener('DOMContentLoaded', e => {
     let menuHeader = document.querySelector('#startMenu')
     menuHeader.querySelector('a').onClick = () => {
-        window._paq.push('trackEvent', 'testTrack', 'didThisWork')
+        window._paq.push(['trackEvent', 'testTrack', 'didThisWork'])
     }
   })
 </script>
